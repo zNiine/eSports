@@ -1,0 +1,1076 @@
+<!--
+Developer:(zNine) Twitter @zNineFD :-D
+ Version Number='0.0.1'
+ Version Update='01'
+ Version Name = 'AfterMath'
+ Version Publish Date = '05-25-2018'
+Developer Notes: Betaaaa  -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <style type="text/css">
+
+  body{
+  background-image: url("Images/b4.png");
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+
+ text-transform: uppercase;
+    font-family: League Gothic, Lato, Arial Black;
+  }
+
+  #containerrrr{
+  width: 1415px;
+    margin: auto;
+
+
+  }
+  #header{
+    display: block;
+    height: 80px;
+    width: 100%;
+    border-bottom-radius: 10px;
+    background-color:  #333333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 35px;
+
+
+  }
+
+  #username{
+    color: white;
+    font-size: 50px;
+    margin-left: 50px;
+    margin-top: 10px;
+    display: block;
+  }
+
+  #menu{
+    color: white;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+
+  #usersearch{
+    background-color: #333333;
+    height: 30px;
+    width: 220px;
+    display: block;
+    margin-top: -28px;
+    border-radius: 20px;
+    margin-right: 108px;
+    color: white;
+    border: 1px solid white;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 30px;
+    float: right;
+  }
+
+
+  #pp{
+    float: right;
+    margin-top: -46px;
+    margin-right: 20px;
+  }
+
+#a{
+  float: right;
+  margin-top: -46px;
+  margin-right: 40px;
+}
+
+#m{
+  float: right;
+  margin-top: -46px;
+  margin-right: 40px;
+}
+
+#b
+{
+  float: right;
+  margin-top: -46px;
+  margin-right: 40px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+#myDropdown{
+  display: block;
+  margin-top: -38px;
+
+  margin-left: 752px;
+
+width: 238px;
+
+  float: right;
+}
+
+
+#left{
+  height: 700px%;
+  width: 26.5%;
+  display: block;
+  color: white;
+  float: left;
+  margin-top: 80px;
+  border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#upleft{
+  height: 350px;
+  width: 99.9%;
+  display: block;
+  background-color:  #f2f2f2;
+  float: left;
+  font-weight: bold;
+  border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: black;
+
+    overflow: scroll;
+}
+
+#botleft{
+  height: 250px;
+  float: left;
+  width: 99.9%;
+  color: black;
+  display: block;
+  border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  background-color:  #f2f2f2
+;
+  margin-top: 2px;
+}
+
+#center{
+margin-top: 80px;
+margin-left: 10px;
+  height: 640px;
+  width: 71.9%;
+  display: block;
+  background-color:  #f2f2f2
+;
+  float: left;
+  color: black;
+  border-radius: 10px;
+}
+
+#right{
+
+  margin-top: 80px;
+  margin-left: 5px;
+    height: 600px;
+    width: 33.9%;
+    display: block;
+    background-color:  #f2f2f2
+;
+    float: left;
+    border-radius: 10px;
+    color: black;
+}
+
+#ff{
+  width: 100%;
+  height: 550px;
+    border-bottom: 1px solid white;
+
+
+}
+
+#usertype{
+  background-color: #333333;
+  height: 30px;
+  width: 80%;
+  display: block;
+margin-top: 10px;
+  border-radius: 10px;
+
+  color: white;
+  border: 1px solid white;
+  text-align: left;
+  padding-left: 10px;
+  font-size: 30px;
+
+
+}
+
+#usertypetype{
+  background-color: #333333;
+  height: 30px;
+  width: 80%;
+  display: block;
+margin-top: 10px;
+  border-radius: 10px;
+
+  color: white;
+  border: 1px solid white;
+  text-align: left;
+  padding-left: 10px;
+  font-size: 30px;
+}
+
+#post{
+  background-color:  #333333; /* Green */
+border-style: 1px;
+border-color: white;
+color: white;
+display: block;
+float:right;
+padding: 5px 10px;
+text-align: center;
+
+margin-top: -34px;
+margin-right: 10px;
+font-size: 20px;
+font-family: sans-serif;
+border-radius: 10px;
+}
+
+#postt{
+  background-color:  #333333; /* Green */
+border-style: 1px;
+border-color: white;
+color: white;
+display: block;
+float:right;
+padding: 5px 10px;
+text-align: center;
+
+margin-top: -34px;
+margin-right: 0px;
+font-size: 20px;
+font-family: sans-serif;
+border-radius: 10px;
+
+}
+#botbot{
+  height: 170px;
+  overflow: scroll;
+  width: 100%;
+  display: block;
+  text-transform: none;
+
+}
+
+#bottop{
+  height: 30px;
+  width: 100%;
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: #333333;
+
+
+}
+#botbotbot{
+
+
+}
+
+#texttext{
+  font-size: 20px;
+
+
+}
+
+#textdate{
+  font-size: 25px;
+  color: white;
+  text-align: right;
+  float: right;
+  margin-right: 10px;
+  margin-top: 14px;
+}
+
+#postname{
+  font-size: 25px;
+  margin-left: 40px;
+
+
+}
+
+#centertop{
+background-color: black;
+width: 20%;
+height: 130px;
+float: left;
+}
+
+#teamimage{
+  display: block;
+}
+
+#teamname{
+    display: block;
+}
+
+#centercenter{
+  height: 130px;
+  width: 40%;
+  background-color: black;
+  color: white;
+  float: left;
+  display: block;
+
+}
+
+#centerright{
+  height: 130px;
+  width: 40%;
+  background-color: black;
+  color: white;
+  float: left;
+  display: block;
+}
+
+#centermenu{
+  background-color: grey;
+  width: 50%;
+  height: 40px;
+  color: white;
+  float: left;
+  display: block;
+  margin-left: 20px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+#rankingtab{
+  margin-right: 13px;
+  margin-left: 13px;
+  margin-top: 3px;
+  color: blue;
+}
+#MatchfinderTab{
+  margin-right: 13px;
+  margin-left: 13px;
+  margin-top: 3px;
+}
+
+#Rules{
+  margin-right: 13px;
+  margin-left: 13px;
+}
+
+#centerff{
+  height: 430px;
+  width: 50%;
+  background-color: black;
+  float: left;
+  display: block;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+
+#adspace{
+  height: 430px;
+  width: 40%;
+  background-color: black;
+  float: left;
+  display: block;
+  margin-left: 20px;
+  margin-top: 10px;
+
+}
+
+  </style>
+
+  <script type="text/javascript">
+var userID;
+var usname;
+var ladderid;
+var teamid;
+  function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+    var imgg = document.createElement('imgg');
+      var firebaseref = firebase.database().ref();
+      var database = firebase.database();
+      var usertext = document.getElementById("usersearch").value;
+      database.ref('/Users/').on('value',function(snap) {
+          unames = [];
+                  snap.forEach(function(item) {
+                  var usernames = item.val();
+                  var length = usertext.length;
+                  var newuser = usernames.name.toString();
+                  var newnew = newuser.slice(0, length);
+                    if(usertext == "")
+                    {
+                      unames = [];
+
+                    }
+                    else if(usertext.toLowerCase() == newnew.toLowerCase()){
+                    unames.push(usernames);
+
+
+                  }
+
+
+
+                })
+ document.getElementById("myDropdown").innerHTML = "";
+
+     var tbl = document.createElement('table');
+
+    for(var i = 0; i < unames.length; i++){
+
+      var row = tbl.insertRow(i);
+      row.style.backgroundColor = "#1aa0e0";
+      row.style.height = "50px";
+      row.style.width = "700px";
+      row.style.borderRadius = "25px";
+      var cell1 = row.insertCell(0);
+      cell1.style.width = "700px";
+        cell1.style.borderRadius = "25px";
+        cell1.style.fontSize = "40px";
+        cell1.style.fontFamily = "sans-serif";
+        var img = document.createElement('img');
+        img.src = unames[i].pic;
+        img.style.height = "50px";
+        img.style.width = "50px";
+        img.style.float = "left";
+        img.style.borderColor = "white";
+        img.style.borderWidth = "Thick";
+      cell1.innerHTML = unames[i].name;
+      cell1.style.textAlign = "center";
+      cell1.id = unames[i].id;
+      otheruserID = unames[i].id;
+      cell1.onclick = function () {
+                tableText(this);
+            };
+    cell1.appendChild(img);
+    cell1.appendChild(imgg);
+      var div = document.getElementById('myDropdown');
+         div.appendChild(tbl);
+
+
+    }
+
+              })
+
+
+
+
+}
+
+
+
+//  userID = firebase.auth().currentUser.uid;
+
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+var picpicpic;
+function load(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+
+
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+
+          // User is signed in.
+        userID = firebase.auth().currentUser.uid;
+
+        var trylq = firebase.database().ref().child(userID + '/name/');
+        trylq.on('value', function(snapshot) {
+          usname = snapshot.val();
+          document.getElementById("usersearch").placeholder = usname;
+
+        });
+
+
+
+        var earningsq = firebase.database().ref().child(userID + '/pic/');
+        earningsq.on('value', function(snapshot) {
+          picpicpic = snapshot.val();
+          document.getElementById("pp").src = picpicpic;
+        });
+
+        var ladder = firebase.database().ref().child(userID + '/ladderid/ladderid/');
+        ladder.on('value', function(snapshot) {
+          ladderid = snapshot.val();
+          rankingclick();
+          var teami = firebase.database().ref().child(userID + '/' + ladderid + '/');
+          teami.on('value', function(snapshot) {
+
+            teamid = snapshot.val();
+
+            if(teamid == "" || teamid == null)
+            {
+              teamid = null;
+
+              document.getElementById("centertop").innerHTML = '<input id="tname" placeholder="Team name"><button onclick="teamcreate();"> Create Team </button>';
+              document.getElementById("centercenter").innerHTML ="";
+                    document.getElementById("centerright").innerHTML ="";
+            }
+            else{
+var wins;
+var loses;
+var xp;
+var tnam;
+var picid;
+              var teamw = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/w');
+              teamw.on('value', function(snapshot) {
+                wins = snapshot.val();
+
+              });
+
+              var loses = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/l');
+              loses.on('value', function(snapshot) {
+                loses = snapshot.val();
+  document.getElementById("winloss").innerHTML = wins + "-" + loses;
+              });
+
+              var xxxx = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/x');
+              xxxx.on('value', function(snapshot) {
+                xp = snapshot.val();
+document.getElementById("xp").innerHTML = xp + " XP";
+              });
+
+              var tnamee = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/n');
+              tnamee.on('value', function(snapshot) {
+                tnam = snapshot.val();
+            document.getElementById("teamname").innerHTML = tnam;
+              });
+
+              var picidd = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/pic');
+              picidd.on('value', function(snapshot) {
+                picid = snapshot.val();
+                if(picid == null)
+                {
+                  document.getElementById("piciddd").src = "Images/ngelogo.png";
+                }
+                else{
+                    document.getElementById("piciddd").src = picid;
+                }
+
+              });
+
+
+
+
+
+
+
+            }
+          });
+
+        });
+
+
+
+      }
+    else{
+window.location.href = "signin.htm";
+
+
+    }});
+
+
+}
+
+function teamcreate(){
+
+  var teamid = makeid();
+var d = document.getElementById("tname").value;
+alert(teamid);
+if(d == null || d == "")
+{
+
+}
+else{
+  var data = {
+    i: teamid,
+    n: d,
+    tc: userID,
+    w: 0,
+    l: 0,
+    x: 0,
+    rank: 0,
+    pic: null,
+
+  }
+
+
+
+  var updates = {};
+
+  //  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
+  //  updates[userID + '/posts/' + newPostKey] = data;
+
+
+
+  updates['/Ladder/' + ladderid + '/t/' + teamid] = data;
+
+  alert(userID);
+    var u = {};
+    u[userID + '/' + ladderid] = teamid;
+   firebase.database().ref().update(u);
+  return firebase.database().ref().update(updates);
+
+
+
+
+}
+
+
+}
+
+
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 10; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
+
+function lollol(d){
+  var postfill = d;
+  var checkcheck = 0;
+
+    document.getElementById("botbot").innerHTML = "";
+    var posttable = document.createElement('table');
+    for(var i = 0; i < postfill.length; i++){
+
+      var row = posttable.insertRow(checkcheck);
+
+      row.style.height = "30px";
+      row.style.width = "700px";
+      checkcheck++;
+      var cell1 = row.insertCell(0);
+      cell1.colspan = "2";
+      cell1.style.width = "700px";
+      cell1.style.height = "40px";
+      cell1.style.borderBottomLeftRadius = "0px";
+            cell1.style.borderBottomRightRadius = "0px";
+            cell1.style.borderTopLeftRadius = "25px";
+                  cell1.style.borderTopRightRadius = "25px";
+        cell1.style.fontSize = "20px";
+        cell1.style.fontFamily = "sans-serif";
+        cell1.innerHTML = postfill[i].text;
+row.style.backgroundColor = "#1aa0e0";
+if(postfill[i].senderuserid == userID)
+{
+      cell1.style.borderBottomLeftRadius = "25px";
+  row.style.backgroundColor = "#1aa0e0";
+  cell1.style.textAlign = "Right";
+}
+else{
+  row.style.backgroundColor = "green";
+    cell1.style.textAlign = "Left";
+    cell1.style.borderBottomRightRadius = "25px";
+}
+
+cell1.onclick = function(){
+
+  if(postfill[0].senderuserid == userID)
+  {
+
+    cell1.id = postfill[0].otheruserID;
+      ig(cell1.id);
+  }
+  else{
+    row.style.backgroundColor = "green";
+      cell1.style.textAlign = "Left";
+      cell1.style.borderBottomRightRadius = "25px";
+      cell1.id = postfill[0].senderuserid;
+      ig(cell1.id);
+
+  }
+
+
+
+
+}
+      var div = document.getElementById('botbot');
+      div.scrollTop = div.scrollHeight;
+         div.appendChild(posttable);
+
+}
+
+}
+
+  function rankingclick(){
+var database = firebase.database();
+  document.getElementById("centerff").innerHTML = "";
+    document.getElementById("rankingtab").style.color="blue";
+    document.getElementById("Rules").style.color="white";
+    document.getElementById("MatchfinderTab").style.color="white";
+var tss = [];
+
+database.ref('/Ladder/' + ladderid + '/t/').once('value', function(snap) {
+  var fa = [];
+  snap.forEach(function(item) {
+
+
+    tss.unshift(item.val());
+  })
+
+let keys = Object.keys(tss);
+keys.sort(function(a, b) { return tss[a].x - tss[b].x });
+
+var x = document.createElement("TABLE");
+var header = x.createTHead();
+var row = header.insertRow(0);
+row.style.backgroundColor = "red";
+var cell = row.insertCell(0);
+cell.innerHTML = "Rank";
+cell.width = "20px";
+header.style.textAlign = "center";
+var cell1 = row.insertCell(1);
+cell1.innerHTML = "Team name";
+cell1.width = "250px";
+
+
+var cell2 = row.insertCell(2);
+cell2.innerHTML = "XP";
+cell2.width = "30px";
+
+var cell3 = row.insertCell(3);
+cell3.innerHTML = "W/L";
+cell3.width = "30px";
+
+var cell4 = row.insertCell(4);
+cell4.innerHTML = "PCT";
+cell4.width = "35px";
+
+var cell5 = row.insertCell(5);
+cell5.innerHTML = "√";
+cell5.width = "15px";
+
+var div = document.getElementById("centerff");
+div.appendChild(x);
+var rank = 0;
+for(var i = tss.length - 1; i >= 0; i--)
+{
+rank++;
+  var t = keys[i];
+
+
+
+  var row = x.insertRow(rank);
+  row.style.backgroundColor = "red";
+  var cell = row.insertCell(0);
+  cell.innerHTML = rank;
+  cell.width = "20px";
+
+  var cell1 = row.insertCell(1);
+  cell1.innerHTML = tss[t].n;
+  cell1.width = "250px";
+  cell1.id = tss[t].i;
+
+  cell1.onclick = function () {
+           teampage(this);
+        };
+
+  var cell2 = row.insertCell(2);
+  cell2.innerHTML = tss[t].x;
+  cell2.width = "30px";
+
+  var cell3 = row.insertCell(3);
+  cell3.innerHTML = tss[t].w + "-" + tss[t].l;
+  cell3.width = "30px";
+
+  var xx = tss[t].w / (tss[t].w + tss[t].l);
+
+
+  var cell4 = row.insertCell(4);
+  if(xx == 1)
+  {
+    cell4.innerHTML = "1.000";
+  }
+  else{
+    cell4.innerHTML = xx * 1000 + "";
+  }
+
+  cell4.width = "35px";
+
+  var cell5 = row.insertCell(5);
+  cell5.innerHTML = "√";
+  cell5.width = "15px";
+
+
+}
+
+
+var div = document.getElementById("centerff");
+div.appendChild(x);
+})
+
+
+  }
+
+  function teampage(d){
+  var database = firebase.database();
+  var dd = d.id
+
+  firebase.database().ref(userID + '/tid/').update({
+  tid: dd,
+  })
+
+  window.location.href = "teamladder.htm";
+
+
+
+  }
+
+
+  function matchfinderclick(){
+    var firebaseref = firebase.database().ref();
+    var database = firebase.database();
+        document.getElementById("rankingtab").style.color="white";
+        document.getElementById("Rules").style.color="white";
+        document.getElementById("MatchfinderTab").style.color="blue";
+
+        var fullfill = document.getElementById("centerff");
+        fullfill.innerHTML = "";
+        document.getElementById("centerff").innerHTML += '<button id="creatematch" onclick="cre();"> Create match </button>';
+
+        var datebase = firebase.database();
+        database.ref('/Ladder/' + ladderid + '/matchfinder').on('value', function(snap) {
+          var fa = [];
+          snap.forEach(function(item) {
+            fa.shift(item.val());
+          })
+
+        });
+
+  }
+
+function cre(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+  var d = new Date();
+  var n = d.getTime();
+  var zzz = document.getElementById("centerff");
+  zzz.innerHTML = "";
+  zzz.innerHTML += '<center> &nbsp&nbsp&nbsp&nbsp&nbsp<select id="rule"> <option value="NGE SnD"> NGE SnD </option> </option><option value="NGE Variant"> NGE Variant </option><option value="CWL Rules">CWL Rules </option></select> </center>';
+
+  var r = document.getElementById("rule");
+  var rul = r.options[r.selectedIndex].value;
+  var datebase = firebase.database();
+var d =0;
+  var farr = [];
+  var username = [];
+  database.ref('/Ladder/' + ladderid + '/' + teamid + '/Roster').on('value', function(snap) {
+
+
+    snap.forEach(function(item) {
+      farr.unshift(item.val());
+    })
+
+
+for(var i = 0; i < farr.length; i++){
+  var ch = farr[i];
+  database.ref(ch + '/name/').on('value', function(snap) {
+
+    snap.forEach(function(item) {
+      username.shift(item.val());
+    })
+
+    for(var i = 0; i < username.length; i++)
+    {
+      document.getElementById("centerff").innerHTML += username[i];
+    }
+  });
+
+
+}
+
+
+
+
+  });
+
+//zzz.innerHTML += '<center><button onclick="cc();"> Post </button></center>';
+
+/*
+  var data = {
+time: n,
+posterid: teamid,
+rulset: rulset,
+roster: roster,
+type: type,
+}*/
+
+
+}
+
+
+  function rulesclick(){
+
+        document.getElementById("rankingtab").style.color="white";
+        document.getElementById("Rules").style.color="blue";
+        document.getElementById("MatchfinderTab").style.color="white";
+
+
+  }
+
+
+
+  </script>
+
+
+</head>
+
+<body onload="load();">
+
+<div id="containerrrr">
+  <div id="header">
+    <!-- <div id="username">
+djkj
+    </div>
+    <center>
+    <img style="margin-top: -100px;" src="Images/ngelogo.png" height="150px;" width="150px;"/>
+  </CENTER>
+-->
+<div id="menu">
+Explore  &nbsp&nbsp&nbsp  Competetion &nbsp&nbsp&nbsp News  &nbsp&nbsp&nbsp Store &nbsp&nbsp
+<div id="rightmenu">
+
+
+    <input onkeyup="myFunction()" id ="usersearch" placeholder="">
+    <div class="dropdown">
+
+      <div id="myDropdown" class="dropdown-content">
+
+
+      </div>
+    </div>
+
+
+<a href="profile.htm"><img height="80px" width="80px" id="pp" /></a>
+</div>
+
+</div>
+</div>
+<div id="left">
+
+</div>
+<div id="center">
+  <center>
+  <div id="centertop">
+    <span id="teamimage">
+    <img src="Images/ngelogo.png" id="piciddd" height="100px" width="100px" /></span>
+    <span style="color: white;" id="teamname">Teamname</span>
+</center>
+<div id="centercenter">
+  <span id="winloss">4-0</span><br />
+  <span id="xp">0 XP</span><br />
+  <span id="LadderRank">1st in Ladder</span><br />
+  <span id="ScheduledMatch">Vs AGN </span>
+
+</div>
+<div id="centerright">
+Instant Match Finder create <br />
+Dispand Team <br />
+
+
+</div>
+<div id="centermenu">
+<span id="rankingtab" onclick="rankingclick();">Rankings </span>
+<span id="MatchfinderTab" onclick="matchfinderclick();">Match Finder </span>
+<span id="Rules" onclick="rulesclick();">Rules </span>
+
+
+</div>
+
+<div id="centerff">
+
+</div>
+
+
+  </div>
+
+
+</div>
+
+
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCQtXd25fQmP_6zV-mxSs64O_9y2J20iI4",
+    authDomain: "poctest-c1a05.firebaseapp.com",
+    databaseURL: "https://poctest-c1a05.firebaseio.com",
+    projectId: "poctest-c1a05",
+    storageBucket: "poctest-c1a05.appspot.com",
+    messagingSenderId: "434071952145"
+  };
+  firebase.initializeApp(config);
+  </script>
+</body>
+
+
+</html>

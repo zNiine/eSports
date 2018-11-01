@@ -1,0 +1,72 @@
+<DOCTYPE html>
+<html>
+
+
+
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <style type ="text/css">
+
+  </style>
+
+  <script type="text/javascript">
+function postmessage(){
+  var t = document.getElementById("Title").value;
+
+      var s = document.getElementById("story").value;
+
+
+                    var data =
+                    {
+                      Text: s,
+                      Title: t,
+
+
+
+                    }
+
+      //var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
+      //var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
+      var newuserkey = firebase.database().ref().child('/News/').push().key;
+
+
+
+      var updates = {};
+
+      //  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
+      //  updates[userID + '/posts/' + newPostKey] = data;
+        updates['/News/' + newuserkey] = data;
+
+      return firebase.database().ref().update(updates);
+
+}
+  </script>
+</head>
+<body>
+
+<h1> Title </h1>
+
+  <input onkeyup="" id ="Title" placeholder=""> <br />
+    <h1> Story </h1>
+
+      <input onkeyup="" id ="story" placeholder=""> <br />
+      <button onclick="postmessage();" id="typesend"> Send </button>
+
+
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCQtXd25fQmP_6zV-mxSs64O_9y2J20iI4",
+      authDomain: "poctest-c1a05.firebaseapp.com",
+      databaseURL: "https://poctest-c1a05.firebaseio.com",
+      projectId: "poctest-c1a05",
+      storageBucket: "poctest-c1a05.appspot.com",
+      messagingSenderId: "434071952145"
+    };
+    firebase.initializeApp(config);
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<style type="text/css">
+
+body{
+background-image: url("Images/b4.png");
+height: 100%;
+
+/* Center and scale the image nicely */
+background-position: center;
+
+text-transform: uppercase;
+  font-family: League Gothic, Lato, Arial Black;
+}
+
+#containerrrr{
+width: 1415px;
+  margin: auto;
+
+
+}
+#header{
+  display: block;
+  height: 80px;
+  width: 100%;
+  border-bottom-radius: 10px;
+  background-color:  #333333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-size: 35px;
+
+
+}
+
+#loginbutton{
+
+  background-color:  #333333; /* Green */
+border-style: 1px;
+border-color: white;
+color: white;
+
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+margin-top: 25px;
+margin-left: 10px;
+font-size: 20px;
+font-family: sans-serif;
+border-radius: 10px;
+}
+
+#registerbutton{
+  background-color:  #333333; /* Green */
+border-style: 1px;
+border-color: white;
+color: white;
+
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+margin-top: 25px;
+margin-left: 10px;
+font-size: 20px;
+font-family: sans-serif;
+border-radius: 10px;
+
+}
+
+#news{
+  height: 300px;
+  width: 100%;
+
+resize: both;
+  margin-top: 20px;
+}
+
+
+
+#left{
+  height: 100%;
+  width: 33%;
+  resize: both;
+  float: left;
+}
+
+#ltourn{
+  height: 300px;
+    width: 95%;
+resize: both;
+  margin-top: 10px;
+
+
+}
+
+#thead{
+  color: white;
+  font-size: 50px;
+
+  height: 60px;
+  resize: both;
+  background-color: #333333;
+  border-bottom: 5px solid #001433;
+    width: 95%;
+
+}
+
+#leaderboard{
+  color: white;
+  font-size: 40px;
+resize: both;
+  width: 100%;
+
+  height: 60px;
+  background-color: #333333;
+margin-left: 10px;
+  border-bottom: 5px solid #001433;
+
+}
+
+
+
+#tfeed{
+  height: 500px;
+  width: 95%;
+  resize: both;
+  background-color:  #001433;
+  width: 95%;
+}
+
+#scroller{
+  height: 400px;
+  width: 100%;
+
+  background-color:  #001433;
+  float: left;
+  resize: both;
+  margin-top: 10px;
+  text-align: center;
+  margin-left: 1.5px;
+}
+
+input{
+  border: 0;
+padding: 4px 0;
+font-size: 20px;
+border-bottom: 2px solid #ccc;
+background-color: transparent;
+color: white;
+}
+
+/* #f{
+  height: 50px;
+  width: 98.5%;
+  background-color: black;
+
+  position: fixed;
+  left: 10px;
+  bottom: 0;
+  height: 30px;
+}
+*/
+
+#right{
+  height: 500px;
+  width: 33%;
+
+float: right;
+
+resize: both;
+margin-top: 10px;
+}
+
+#lfeed{
+  height: 490px;
+  resize: both;
+    width: 100%;
+  margin-top: 19px;
+margin-left: -5px;
+  background-color:  #001433;
+
+}
+
+#ad{
+resize: both;
+  height: 140px;
+  width: 100%;
+background-color:  #001433;
+  margin-top: 5px;
+  float: left;
+  margin-left: 1.5px;
+}
+
+#middle{
+  float: left;
+  width: 33%;
+  resize: both;
+  height: 600px;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:   #b3b3b3
+
+;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color:   #b3b3b3
+
+;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color:   #b3b3b3
+
+;
+}
+
+#rr{
+  background-color:  #333333; /* Green */
+border-style: 1px;
+border-color: white;
+color: white;
+
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+
+margin-left: 10px;
+font-size: 20px;
+font-family: sans-serif;
+border-radius: 10px;
+}
+
+#d{
+
+}
+
+#dddd{
+  width: 100%;
+  height:80px;
+}
+
+</style>
+
+<script type="text/javascript">
+var time = 0;
+var scrollBool = true;
+var xy;
+var x;
+var y;
+var z;
+
+var xx;
+var yy;
+
+var date;
+function load(){
+
+
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+firebase.auth().onAuthStateChanged(function(user) {
+  if(user)
+  {
+    setTimeout(function () {
+  //window.location.href = "index.htm";
+    }, 2000);
+
+
+  }
+})
+
+
+if(scrollBool)
+{
+  window.setInterval(function(){
+    time++
+    var div = document.getElementById('scroller');
+    var img = document.createElement('img');
+    if(time == 100)
+    {
+      time = 0;
+    }
+    else if(time % 2 == 0 && scrollBool == true)
+    {
+      div.innerHTML = '<img src="Images/background.png" height="400px" width="500px" />';
+
+    }
+    else if (time % 2 == 1 && scrollBool == true)
+    {
+      div.innerHTML = '<img src="Images/psn.png" height="400px" width="500px" />';
+    }
+
+    /// call your function here
+
+  }, 1000);
+}
+
+}
+
+function chang(){
+  scrollBool = false;
+   x = document.createElement("INPUT");
+  x.type = "text";
+  x.placeholder = "Email";
+  x.id = "x";
+
+   y = document.createElement("INPUT");
+  y.type = "text";
+  y.placeholder = "Username";
+    y.id = "y";
+
+   z = document.createElement("INPUT");
+  z.type = "Password";
+  z.placeholder = "Password";
+    z.id = "z";
+
+   xy = document.createElement("INPUT");
+  xy.type = "Password";
+  xy.placeholder = "Re-Password";
+    xy.id = "xy";
+
+
+
+  var docume = document.getElementById("scroller");
+document.getElementById("scroller").innerHTML = "<center>";
+  docume.appendChild(x);
+  document.getElementById("scroller").innerHTML += "<br />";
+  docume.appendChild(y);
+  document.getElementById("scroller").innerHTML += "<br />";
+  docume.appendChild(z);
+  document.getElementById("scroller").innerHTML += "<br />";
+  docume.appendChild(xy);
+document.getElementById("scroller").innerHTML += "<br />";
+
+document.getElementById("scroller").innerHTML += '<button onclick="reggy();"> Register </button>';
+document.getElementById("scroller").innerHTML += "</center>";
+
+
+}
+function reggy()
+{
+var email = document.getElementById("x").value;
+var username = document.getElementById("y").value;
+var pass = document.getElementById("z").value;
+var repass = document.getElementById("xy").value;
+
+
+var firebaseref = firebase.database().ref();
+var database = firebase.database();
+var isSuccessful = false;
+
+if(username == "")
+{
+alert("Please enter a username");
+}
+else if(email == "")
+{
+alert("Please enter an email");
+}
+else {
+
+
+//check database for already existing username
+
+var checkusername = false;
+var checkemail = false;
+database.ref('/Users/').once('value', function(snap) {
+var fa = [];
+snap.forEach(function(item) {
+var ch = item.val();
+var low = ch.name.toString();
+  if(username.toLowerCase() == low.toLowerCase())
+  {
+    checkusername = true;
+  }
+
+  if(email.toLowerCase() == low.toLowerCase())
+  {
+    checkemail = true;
+  }
+
+
+})
+
+
+if(checkusername == true)
+{
+    alert("Username has already been taken");
+}
+else if(checkemail == true)
+{
+  alert("Email has already been used");
+}
+else{
+
+
+    firebase.auth().createUserWithEmailAndPassword(email, pass).catch(function(error) {  // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    });
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        usersRef = firebaseref.child(user.uid);
+        firebase.database().ref('Users/' + username).set({
+          email: email,
+          pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
+          id: user.uid,
+          name: username,
+
+        });
+
+        var ch = user.uid;
+        firebase.database().ref(user.uid).set({
+         name: username,
+         email: email,
+         money: 0,
+         xp: 0,
+         Earnings: 0,
+         TryLs: 0,
+         XBL: "",
+         PSN: "",
+         pic: "https://firebasestorage.googleapis.com/v0/b/poctest-c1a05.appspot.com/o/img_191958.png?alt=media&token=88088937-bbfe-43ad-8b7e-1e521579a758",
+         twitter: "",
+         freeagentstatus: true,
+         Role: "",
+         FreeAgent: false,
+         gold: 0,
+         silver: 0,
+         bronze: 0,
+         plastic: 0,
+       });
+
+  firebase.database().ref(user.uid + '/Following/' + user.uid).update({ch});
+  isSuccessful = true;
+
+  setTimeout(function () {
+  changepage();
+  }, 2000);
+
+      }
+      });
+
+
+  }
+
+});
+
+
+
+
+
+}
+
+
+
+
+
+
+}
+
+function changepage(){
+     window.location.href = "profile.htm";
+}
+
+function chan(){
+
+    scrollBool = false;
+     xx = document.createElement("INPUT");
+    xx.type = "text";
+    xx.placeholder = "Email";
+    xx.id = "xx";
+
+
+
+     yy = document.createElement("INPUT");
+    yy.type = "Password";
+    yy.placeholder = "Password";
+      yy.id = "yy";
+
+
+
+
+    var docume = document.getElementById("scroller");
+  document.getElementById("scroller").innerHTML = "<center>";
+    docume.appendChild(xx);
+
+    document.getElementById("scroller").innerHTML += "<br />";
+    docume.appendChild(yy);
+    document.getElementById("scroller").innerHTML += "<br />";
+
+
+  document.getElementById("scroller").innerHTML += '<button onclick="regg();"> Login </button>';
+  document.getElementById("scroller").innerHTML += "</center>";
+
+
+}
+
+function regg(){
+  var email = document.getElementById("xx").value;
+
+  var pass = document.getElementById("yy").value;
+  alert(email);
+
+}
+</script>
+</head>
+<body onload="load();">
+
+<div id="containerrrr">
+  <div id="header">
+    <button id="loginbutton" onclick="chan();">
+      Login
+    </button>
+    <button id="registerbutton" onclick="chang();">
+      Register
+    </button>
+    <center>
+<img style="margin-top: -93px;" src="Images/ngelogo.png" height="150px;" width="150px;"/>
+</center>
+  </div>
+<div id="dddd">
+
+</div>
+<div id="left">
+<div id="ltourn">
+  <div id="thead">
+    <center> Tournaments </center>
+  </div>
+  <div id="tfeed">
+
+  </div>
+
+</div>
+
+
+
+  </div>
+</div>
+<div id="middle">
+<div id="scroller">
+
+
+</div>
+<div id="ad">
+  ads
+</div>
+
+</div>
+<div id="right">
+  <div id="leaderboard">
+    <center> NAC Leaderboard </center>
+    <div id="lfeed">
+
+    </div>
+
+
+</div>
+</div>
+<div id="f">
+
+
+</div>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCQtXd25fQmP_6zV-mxSs64O_9y2J20iI4",
+    authDomain: "poctest-c1a05.firebaseapp.com",
+    databaseURL: "https://poctest-c1a05.firebaseio.com",
+    projectId: "poctest-c1a05",
+    storageBucket: "poctest-c1a05.appspot.com",
+    messagingSenderId: "434071952145"
+  };
+  firebase.initializeApp(config);
+</script>
+</body>
+
+
+</html>

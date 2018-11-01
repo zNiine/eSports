@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<style ="text/CSS">
+#tournamentRetrieve{
+  height: 500px;
+  width: 500px;
+  background-color: black;
+}
+
+</style>
+
+  <script type="text/javascript">
+  var tournamentLink;
+var apiKey = "iaux7giB5Ct1eR31ZpWUPF2wPJXwyA4NjCUoaqcm";
+var request = new XMLHttpRequest();
+const Url = "https://api.challonge.com/v1/tournaments";
+var itemJSON;
+
+
+
+var itemJON;
+itemJON = {
+  "api_key": apiKey,
+
+
+}
+
+function Create() {
+
+
+
+
+
+
+if(document.getElementById("tName").value == ""){
+  document.getElementById("tName").placeholder = "Enter Value";
+
+
+
+}
+else{
+  if(document.getElementById("tLink").value == ""){
+  randomLink();
+  }
+var name = document.getElementById("tName").value;
+  itemJSON = {
+    "api_key": apiKey,
+    "tournament[name]": name,
+    "tournament[url]": tournamentLink,
+
+  }
+
+
+
+  $.post(Url, itemJSON, function(data, status){
+    console.log(data)
+  });
+
+  $.ajax({
+                  url: Url,
+
+                  type: 'post',
+                  contentType: 'application/json',
+                  data: itemJSON,
+                  success: function( data, textStatus, jQxhr ){
+                      $('#response pre').html( data );
+
+
+
+
+
+                  },
+                  error: function( jqXhr, textStatus, errorThrown ){
+                      console.log( errorThrown );
+
+                  }
+              });
+
+              firebase.database().ref("Tournaments/" + name).set({
+               name: name,
+               link: tournamentLink,
+
+             });
+}
+
+/*    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+             alert(this.responseText);
+         }
+    };
+    xhttp.open("POST", "https://api.challonge.com/v1/tournaments", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(itemJSON);
+    */
+}
+
+
+
+function load(){
+
+
+  var database = firebase.database();
+
+
+  var postfill = [];
+
+        database.ref('/Tournaments/').on('value', function(snap) {
+
+          snap.forEach(function(item) {
+            postfill.push(item.val());
+          }
+
+        )
+          lololol(postfill);
+
+
+
+
+
+        });
+
+
+}
+
+
+
+function lololol(postfill){
+                var checkcheck = 0;
+                var postfill = postfill;
+                  document.getElementById("tournamentRetrieve").innerHTML = "";
+                  var posttable = document.createElement('table');
+
+                  for(var i = 0; i < postfill.length; i++){
+                    var row = posttable.insertRow(checkcheck);
+                    row.style.backgroundColor = "#1aa0e0";
+                    row.style.height = "100px";
+                    row.style.width = "700px";
+                    checkcheck++;
+                    var cell1 = row.insertCell(0);
+                    cell1.colspan = "2";
+                    cell1.style.width = "700px";
+                    cell1.style.height = "100px";
+                    cell1.style.borderBottomLeftRadius = "0px";
+                          cell1.style.borderBottomRightRadius = "0px";
+                          cell1.style.borderTopLeftRadius = "25px";
+                                cell1.style.borderTopRightRadius = "25px";
+                      cell1.style.fontSize = "40px";
+                      cell1.style.fontFamily = "sans-serif";
+
+                      var sspan = document.createElement('span');
+
+                      sspan.style.fontSize = "10px";
+                      sspan.style.color = "blue";
+                      sspan.id = "textext";
+                                    //cell1.style.textAlign = "center";
+                    cell1.id = postfill[i].id;
+                  //  cell1.onclick = function () {
+                  //            tableText(this);
+                    //      };
+
+                                  var row2 = posttable.insertRow(checkcheck);
+                                      checkcheck++;
+                                        var cell2 = row2.insertCell(0);
+                                      row2.style.height = "30px";
+                                      row2.style.width = "700px";
+                                      row2.style.backgroundColor = "#1aa0e0";
+                                      cell2.style.width = "350px";
+                                      cell2.style.height = "30px";
+                                        cell2.style.borderBottomLeftRadius = "25px";
+                                              cell2.style.borderBottomRightRadius = "25px";
+                                              cell2.style.textAlign = "center";
+                                              cell2.style.color = "white";
+                                              cell2.id = postfill[i].link;
+                                              cell2.style.textAlign = "center";
+                                                cell2.onclick = function () {
+                                                         goodluck(this);
+                                                      };
+
+                        cell1.innerHTML += postfill[i].name + '<br />';
+            //sspan.
+                    var div = document.getElementById('tournamentRetrieve');
+                       div.appendChild(posttable);
+
+
+
+  }
+
+}
+
+function goodluck(d){
+
+  $('tournamentView').challonge('double_elim', {subdomain: '', theme: '1', multiplier: '1.0', match_width_multiplier: '1.0', show_final_results: '0', show_standings: '0'});
+
+
+  /*
+  var link = d;
+  var l = "https://api.challonge.com/v1/tournaments/" + d;
+
+  $.ajax({
+             type: "GET",
+             dataType: "JSON",
+             url: l,
+             data: itemJON,
+             success: function(data){
+                alert(data);
+             }
+         });
+
+
+*/
+}
+
+function randomLink(){
+   tournamentLink = random(10);
+  document.getElementById("tLink").placeholder = tournamentLink;
+}
+
+function random(z) {
+  var text = "";
+  var zz = z;
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < zz; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
+
+
+
+
+</script>
+
+
+</head>
+
+<body onload="load();">
+
+  <input id ="tName" placeholder="Tournament Name">
+  <input id="tLink" placeholder="Tournament Link">
+  <button type="submit" onclick="randomLink()">random</button>
+  <button type="submit" onclick="Create()">Create</button>
+
+<div id="tournamentRetrieve">
+
+</div>
+
+<div id="tournamentView">
+
+</div>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCQtXd25fQmP_6zV-mxSs64O_9y2J20iI4",
+      authDomain: "poctest-c1a05.firebaseapp.com",
+      databaseURL: "https://poctest-c1a05.firebaseio.com",
+      projectId: "poctest-c1a05",
+      storageBucket: "poctest-c1a05.appspot.com",
+      messagingSenderId: "434071952145"
+    };
+    firebase.initializeApp(config);
+  </script>
+</body>
+
+</html>
