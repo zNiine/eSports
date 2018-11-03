@@ -260,6 +260,7 @@ var usname;
 var ladderid;
 var teamid;
 var otherteamid;
+var matchid;
 
   function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -386,6 +387,12 @@ function load(){
         //  document.getElementById("pp").src = picpicpic;
         });
 
+        var otherteamid = firebase.database().ref().child(userID + '/mid/mid/');
+        otherteamid.on('value', function(snapshot) {
+          matchid = snapshot.val();
+        //  document.getElementById("pp").src = picpicpic;
+        });
+
 
         var ladder = firebase.database().ref().child(userID + '/ladderid/ladderid/');
         ladder.on('value', function(snapshot) {
@@ -431,7 +438,7 @@ var picid;
               var tnamee = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/n');
               tnamee.on('value', function(snapshot) {
                 tnam = snapshot.val();
-            document.getElementById("teaminfo").innerHTML = tnam + "<br />" + wins + "-" + loses + "<br />" + xp + "xp";
+            //document.getElementById("teaminfo").innerHTML = tnam + "<br />" + wins + "-" + loses + "<br />" + xp + "xp";
               });
 
               var picidd = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/pic');
@@ -472,297 +479,7 @@ window.location.href = "signin.htm";
 }
 
 
-function aboutSelect(){
-  document.getElementById("aboutNav").style.borderTop = "3px solid black";
-  document.getElementById("aboutNav").style.borderLeft = "3px solid black";
-  document.getElementById("aboutNav").style.borderRight = "3px solid black";
-  document.getElementById("rosterNav").style.borderTop = "0px solid black";
-  document.getElementById("rosterNav").style.borderLeft = "0px solid black";
-  document.getElementById("rosterNav").style.borderRight = "0px solid black";
-  document.getElementById("matchesNav").style.borderTop = "0px solid black";
-  document.getElementById("matchesNav").style.borderLeft = "0px solid black";
-  document.getElementById("matchesNav").style.borderRight = "0px solid black";
 
-
-
-}
-
-
-function rosterAdapter(d){
-  var name = [];
-  var psn = [];
-  var pic = [];
-  var d = d;
-
-    var database = firebase.database();
-    var count = d.length;
-
-    for(var i = 0; i < d.length; i++)
-    {
-            var names = firebase.database().ref().child(d[i] + '/name/');
-          names.on('value', function(snapshot) {
-
-
-       name.push(snapshot.val());
-           });
-
-           var psnn = firebase.database().ref().child(d[i] + '/psn/');
-         psnn.on('value', function(snapshot) {
-
-       psn.push(snapshot.val());
-          });
-
-
-
-          var picc = firebase.database().ref().child(d[i] + '/pic/');
-        picc.on('value', function(snapshot) {
-        var t = snapshot.val();
-       pic.push(snapshot.val());
-
-      if(i == count)
-      {
-        rosterfill(name, psn, pic, d);
-      }
-    });
-
-
-    }
-
-
-  }
-
-
-
-
-
-
-
-function rosterfill(a, b, c, d){
-var name = a;
-var psn = b;
-var pic = c;
-var id = d;
-        var checkcheck = 0;
-        var postfill = postfill;
-          document.getElementById("tableViewController").innerHTML = "";
-          var posttable = document.createElement('table');
-
-          for(var i = 0; i < name.length; i++){
-            var row = posttable.insertRow(checkcheck);
-            row.style.backgroundColor = "#1aa0e0";
-            row.style.height = "100px";
-            row.style.width = "700px";
-            checkcheck++;
-            var cell1 = row.insertCell(0);
-            cell1.colspan = "2";
-            cell1.style.width = "700px";
-            cell1.style.height = "100px";
-            cell1.style.borderBottomLeftRadius = "0px";
-            cell1.style.borderBottomRightRadius = "0px";
-            cell1.style.borderTopLeftRadius = "25px";
-            cell1.style.borderTopRightRadius = "25px";
-              cell1.style.fontSize = "40px";
-              cell1.style.fontFamily = "sans-serif";
-              var img = document.createElement('img');
-              img.src = pic[i];
-              img.style.height = "50px";
-              img.style.width = "50px";
-              img.style.float = "left";
-              img.style.borderColor = "white";
-              cell1.append(img);
-              img.style.borderWidth = "Thick";
-              var sspan = document.createElement('span');
-
-              sspan.style.fontSize = "10px";
-              sspan.style.color = "blue";
-              sspan.id = "textext";
-                            //cell1.style.textAlign = "center";
-            cell1.id = d[i];
-           cell1.onclick = function () {
-                      tableText(this);
-                  };
-                cell1.innerHTML += "Name: " + name[i] + '&nbsp&nbsp PSN: ' + psn[i];
-    //sspan.
-            var div = document.getElementById('tableViewController');
-               div.appendChild(posttable);
-
-
-}
-}
-
-
-function tableText(d){
-  var d;
-  firebase.database().ref(userID).update({
-
-  default: d.id,
-});
-
-window.location.href = "other.htm";
-
-}
-
-
-
-function rosterSelect(){
-  document.getElementById("rosterNav").style.borderTop = "3px solid black";
-  document.getElementById("rosterNav").style.borderLeft = "3px solid black";
-  document.getElementById("rosterNav").style.borderRight = "3px solid black";
-
-  document.getElementById("aboutNav").style.borderTop = "0px solid black";
-  document.getElementById("aboutNav").style.borderLeft = "0px solid black";
-  document.getElementById("aboutNav").style.borderRight = "0px solid black";
-
-  document.getElementById("matchesNav").style.borderTop = "0px solid black";
-  document.getElementById("matchesNav").style.borderLeft = "0px solid black";
-  document.getElementById("matchesNav").style.borderRight = "0px solid black";
-
-
-  var rosterArray = [];
-
-  var database = firebase.database();
-        database.ref('/Ladder/' + ladderid + '/t/' + teamid + '/roster/').on('value', function(snap) {
-          snap.forEach(function(item) {
-            rosterArray.push(item.val());
-          }
-
-        )
-          rosterAdapter(rosterArray);
-        });
-}
-
-function matchesSelect(){
-  document.getElementById("matchesNav").style.borderTop = "3px solid black";
-  document.getElementById("matchesNav").style.borderLeft = "3px solid black";
-  document.getElementById("matchesNav").style.borderRight = "3px solid black";
-  document.getElementById("aboutNav").style.borderTop = "0px solid black";
-  document.getElementById("aboutNav").style.borderLeft = "0px solid black";
-  document.getElementById("aboutNav").style.borderRight = "0px solid black";
-  document.getElementById("rosterNav").style.borderTop = "0px solid black";
-  document.getElementById("rosterNav").style.borderLeft = "0px solid black";
-  document.getElementById("rosterNav").style.borderRight = "0px solid black";
-    document.getElementById("tableViewController").innerHTML = "";
-    matchGetter();
-
-}
-
-function matchGetter(){
-var matchids = [];
-var dates = [];
-var times = [];
-var names = [];
-var teamids = [];
-
-    var database = firebase.database();
-          database.ref('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/').on('value', function(snap) {
-            snap.forEach(function(item) {
-              matchids.push(item.val());
-            }
-
-          )
-          matchadapter(matchids);
-        })
-}
-
-function matchadapter(a){
-  var matchids = a;
-    var checkcheck = 0;
-    var postfill = postfill;
-      document.getElementById("tableViewController").innerHTML = "";
-      var posttable = document.createElement('table');
-      var x = document.createElement("TABLE");
-      var header = x.createTHead();
-      var row = header.insertRow(0);
-      row.style.backgroundColor = "red";
-
-      header.style.textAlign = "center";
-      var cell1 = row.insertCell(0);
-      cell1.innerHTML = "Date";
-      cell1.width = "150px";
-
-
-      var cell2 = row.insertCell(1);
-      cell2.innerHTML = "Time";
-      cell2.width = "150px";
-
-      var cell3 = row.insertCell(2);
-      cell3.innerHTML = "Opponent";
-      cell3.width = "130px";
-
-      var cell4 = row.insertCell(3);
-      cell4.innerHTML = "Results";
-      cell4.width = "35px";
-
-      var div = document.getElementById("tableViewController");
-      div.appendChild(x);
-
-
-      for(var i = 0; matchids.length; i++)
-      {
-        var row = x.insertRow(i+1);
-        row.style.backgroundColor = "red";
-        var cell = row.insertCell(0);
-        cell.innerHTML = matchids[i].date;
-        cell.width = "150px";
-
-        var cell1 = row.insertCell(1);
-        cell1.innerHTML = matchids[i].time;
-        cell1.width = "150px";
-      /*  cell1.id = tss[t].i;
-
-        cell1.onclick = function () {
-                teampage(this);
-              };
-*/
-        var cell2 = row.insertCell(2);
-        cell2.innerHTML = matchids[i].against;
-        cell2.width = "130px";
-        cell2.id = matchids[i].againstid;
-        cell2.onclick = function(){
-          teampage(this);
-        };
-
-        var cell3 = row.insertCell(3);
-        cell3.innerHTML = matchids[i].result;
-        cell3.width = "130px";
-
-        cell3.id = matchids[i].matchid;
-        cell3.onclick = function(){
-                matchpage(this);
-        };
-      }
-
-      div.appendChild(x);
-
-}
-
-function matchpage(d){
-var database = firebase.database();
-var dd = d.id
-
-firebase.database().ref(userID + '/mid/').update({
-mid: dd,
-})
-
-window.location.href = "match.htm";
-
-
-
-}
-
-function teampage(d){
-var database = firebase.database();
-var dd = d.id
-
-firebase.database().ref(userID + '/tid/').update({
-tid: dd,
-})
-
-window.location.href = "teamladder.htm";
-
-
-
-}
 
   </script>
 
@@ -805,23 +522,12 @@ Explore  &nbsp&nbsp&nbsp  Competetion &nbsp&nbsp&nbsp Community
 
 </div>
 <div id="otherteampagecenter">
-<div style="height: 300px; width: 400px; float: left;"><img id="teampicture" style="margin-left: -100px;margin-top: 10px;" src="Images/hOZQYOfq.png" height="200" width="400"</div>
-<div id="teaminfo">
-
+<div style="height: 300px; width: 400px; float: left;">
 </div>
+
 <br />
-<div class="tableNav" id="rosterNav" onclick="rosterSelect();">
-  Roster
-</div>
-<div onclick="matchesSelect();" class="tableNav" id="matchesNav">
-  Matches
-</div>
-<div onclick="aboutSelect();" class="tableNav" id="aboutNav">
-  About
-</div>
-<div id="tableViewController">
 
-</div>
+
 
 
 </div>
