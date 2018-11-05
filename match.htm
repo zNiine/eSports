@@ -205,14 +205,12 @@ margin-top: 10px;
 
 }
 
-#otherteampagecenter{
+#centerConsole{
   height: 600px;
   width: 40%;
   background-color: white;
   float: left;
   margin-left: 40px;
-
-
   margin-top: 90px;
   background-color: white;
   border-top-left-radius: 10px;
@@ -234,6 +232,20 @@ background-color: grey;
 
 }
 
+#messageboard{
+  height: 450px;
+  width: 20.5%;
+  display: block;
+  color: white;
+  float: left;
+  margin-left: 20px;
+  margin-top: 90px;
+  background-color: white;
+  border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+
 .tableNav{
   display: inline;
 margin-left: 5px;
@@ -252,6 +264,17 @@ padding-left: 3px;
   padding-left: 3px;
 }
 
+#matchCC{
+  height: 148px;
+  width: 20.5%;
+  display: block;
+  color: grey;
+  float: left;
+  margin-left: 20px;
+  margin-top: 2px;
+  background-color: grey;
+
+}
   </style>
 
   <script type="text/javascript">
@@ -381,8 +404,8 @@ function load(){
           document.getElementById("pp").src = picpicpic;
         });
 
-        var otherteamid = firebase.database().ref().child(userID + '/tid/tid/');
-        otherteamid.on('value', function(snapshot) {
+        var oeamid = firebase.database().ref().child(userID + '/tid/tid/');
+        oeamid.on('value', function(snapshot) {
           teamid = snapshot.val();
         //  document.getElementById("pp").src = picpicpic;
         });
@@ -397,7 +420,7 @@ function load(){
         var ladder = firebase.database().ref().child(userID + '/ladderid/ladderid/');
         ladder.on('value', function(snapshot) {
           ladderid = snapshot.val();
-
+laddermaybe();
           var teami = firebase.database().ref().child(userID + '/' + ladderid + '/');
           teami.on('value', function(snapshot) {
 
@@ -412,28 +435,7 @@ function load(){
                     document.getElementById("centerright").innerHTML ="";
             }
             else{
-var wins;
-var loses;
-var xp;
-var tnam;
-var picid;
-              var teamw = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/w');
-              teamw.on('value', function(snapshot) {
-                wins = snapshot.val();
 
-              });
-
-              var loses = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/l');
-              loses.on('value', function(snapshot) {
-                loses = snapshot.val();
-  //document.getElementById("winloss").innerHTML = wins + "-" + loses;
-              });
-
-              var xxxx = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/x');
-              xxxx.on('value', function(snapshot) {
-                xp = snapshot.val();
-//document.getElementById("xp").innerHTML = xp + " XP";
-              });
 
               var tnamee = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/n');
               tnamee.on('value', function(snapshot) {
@@ -444,7 +446,7 @@ var picid;
               var picidd = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/pic');
               picidd.on('value', function(snapshot) {
                 picid = snapshot.val();
-                rosterSelect();
+
                 if(picid == null)
                 {
               //    document.getElementById("piciddd").src = "Images/ngelogo.png";
@@ -468,20 +470,39 @@ var picid;
 
 
 
+
       }
     else{
 window.location.href = "signin.htm";
 
 
     }});
+}
 
+var matchinfo = [];
+function matchinfoAdapter(d){
+  var dd = d;
+}
 
+function laddermaybe(){
+  var database = firebase.database();
+        database.ref('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid).on('value', function(snap) {
+          snap.forEach(function(item) {
+            matchinfo.push(item.val());
+          }
+
+        )
+        matchinfoAdapter(matchinfo);
+      })
 }
 
 
 
-
   </script>
+
+
+
+
 
 
 
@@ -521,11 +542,49 @@ Explore  &nbsp&nbsp&nbsp  Competetion &nbsp&nbsp&nbsp Community
 <div id="left">
 
 </div>
-<div id="otherteampagecenter">
-<div style="height: 300px; width: 400px; float: left;">
+<div id="centerConsole">
+
+    <div id="lowleft" style="display: inline; float: left; height: 300px; width: 50.0%; background-color: red;">
+<center>
+  <img style="" height="100px;" width="100px;" src="Images/ngelogo.png" />
+  <div id="lowLeftText">
+
+  </div>
+</center>
+    </div>
+    <div id="highright" style="display: inline; float: left; height: 300px; width: 50.0%; background-color: yellow;">
+      <center>
+        <img style="" height="100px;" width="100px;" src="Images/ngelogo.png" />
+        <div id="lowRightText">
+
+        </div>
+      </center>
+    </div>
+
+
+
+
+  <div style="display: inline; float: left; background-color: black; height: 300px; width: 100%;" id="rosterVC">
+  </div>
+  </div>
+
+
+  <div id="messageboard">
+
+  </div>
+  <div id="matchCC">
+    <button>Report Score</button>
+    <button>Request Cancellation</button>
+    <button>Rules</button>
+    <button>Submit a Ticket</button>
+
+  </div>
+  </div>
+  </div>
+
 </div>
 
-<br />
+
 
 
 

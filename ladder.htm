@@ -614,6 +614,8 @@ document.getElementById("xp").innerHTML = xp + " XP";
 
 
             }
+
+
           });
 
         });
@@ -649,56 +651,33 @@ else{
     x: 0,
     rank: 0,
     pic: null,
-
+    TC: userID,
   }
-
-
-
   var updates = {};
-
   //  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
   //  updates[userID + '/posts/' + newPostKey] = data;
-
-
-
   updates['/Ladder/' + ladderid + '/t/' + teamid] = data;
-
   alert(userID);
     var u = {};
     u[userID + '/' + ladderid] = teamid;
    firebase.database().ref().update(u);
   return firebase.database().ref().update(updates);
-
-
-
-
 }
-
-
 }
-
-
 function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
   for (var i = 0; i < 10; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
-
   return text;
 }
-
-
 function lollol(d){
   var postfill = d;
   var checkcheck = 0;
-
     document.getElementById("botbot").innerHTML = "";
     var posttable = document.createElement('table');
     for(var i = 0; i < postfill.length; i++){
-
       var row = posttable.insertRow(checkcheck);
-
       row.style.height = "30px";
       row.style.width = "700px";
       checkcheck++;
@@ -725,9 +704,7 @@ else{
     cell1.style.textAlign = "Left";
     cell1.style.borderBottomRightRadius = "25px";
 }
-
 cell1.onclick = function(){
-
   if(postfill[0].senderuserid == userID)
   {
 
@@ -740,21 +717,13 @@ cell1.onclick = function(){
       cell1.style.borderBottomRightRadius = "25px";
       cell1.id = postfill[0].senderuserid;
       ig(cell1.id);
-
   }
-
-
-
-
 }
       var div = document.getElementById('botbot');
       div.scrollTop = div.scrollHeight;
          div.appendChild(posttable);
-
 }
-
 }
-
   function rankingclick(){
 var database = firebase.database();
   document.getElementById("centerff").innerHTML = "";

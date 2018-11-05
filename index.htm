@@ -1274,21 +1274,9 @@ updates[oomessage + '/LastMessage/' + userID] = data;
 
 return firebase.database().ref().update(updates);
 return firebase.database().ref().update(u);
-
 run(oomessage);
-
-
-
-
-
   });
-
-
-
 }
-
-
-
 }
 
 function posst(){
@@ -1493,6 +1481,79 @@ function posst(){
 
   }
 
+function alerts(){
+  var alerts = [];
+  document.getElementById("myDropdown").classList.toggle("show");
+  var imgg = document.createElement('imgg');
+    var firebaseref = firebase.database().ref();
+    var database = firebase.database();
+
+    database.ref(userID + '/alerts').on('value',function(snap) {
+        alerts = [];
+                snap.forEach(function(item){
+                var usernames = item.val();
+                  alerts.push(usernames);
+                })
+              })
+  document.getElementById("myDropdown").innerHTML = "";
+
+   var tbl = document.createElement('table');
+
+  for(var i = 0; i < alerts.length; i++){
+
+    var row = tbl.insertRow(i);
+    row.style.backgroundColor = "#1aa0e0";
+    row.style.height = "50px";
+    row.style.width = "1000px";
+    row.style.borderRadius = "25px";
+    var cell1 = row.insertCell(0);
+    cell1.style.width = "1000px";
+
+    cell1.style.fontSize = "20px";
+    cell1.style.fontFamily = "sans-serif";
+    cell1.innerHTML = alerts[i].teamname + ' has sent you an invite to join their team ladder.';
+    cell1.style.textAlign = "center";
+    var accept = document.createElement("Button");
+    accept.id = i;
+    accept.innerHTML = "Accept";
+    accept.onclick = function() { // Note this is a function
+var updates = {};
+updates[userID] = userID;
+database.ref('Ladder/' + alerts[accept.id].ladderid + '/t/' + alerts[accept.id].teamid + '/roster/').update(updates);
+
+
+  };
+
+  var decline = document.createElement("Button");
+  decline.innerHTML = "Decline";
+  decline.onclick = function() { // Note this is a function
+//database().ref.child(userID + '/alerts/' + alerts[accept.id].alertid).remove();
+var adaRef = firebase.database().ref(userID + '/alerts/' + alerts[accept.id].alertid);
+adaRef.remove()
+  .then(function() {
+    console.log("Remove succeeded.")
+  })
+  .catch(function(error) {
+    console.log("Remove failed: " + error.message)
+  });
+
+
+};
+var div = document.getElementById('myDropdown');
+div.appendChild(accept);
+div.appendChild(decline);
+
+
+       div.appendChild(tbl);
+
+
+  }
+
+
+
+
+
+}
   </script>
 
 
@@ -1503,14 +1564,14 @@ function posst(){
 <div id="containerrrr">
   <div id="header">
     <!-- <div id="username">
-djkj
+
     </div>
     <center>
     <img style="margin-top: -100px;" src="Images/ngelogo.png" height="150px;" width="150px;"/>
   </CENTER>
 -->
 <div id="menu">
-Explore  &nbsp&nbsp&nbsp  <a href="comp.htm">Competetion</a> &nbsp&nbsp&nbsp Community
+Explore  &nbsp&nbsp&nbsp  <a href="comp.htm">Competetion</a> &nbsp&nbsp&nbsp Community &nbsp&nbsp&nbsp <span onclick="alerts();">Alerts</span>
 <div id="rightmenu">
 
 
@@ -1563,18 +1624,11 @@ Tournaments  &nbsp&nbsp <span onclick="free();"> F/A </span> &nbsp&nbsp <span on
   <input id="usertype" placeholder="">
   <button id="post" onclick="posst();"> Post </button>
 </div>
-
 <div id="upright">
 </div>
-
 <div id="botright">
 </div>
-
-
 </div>
-
-
-
 <script>
   // Initialize Firebase
   var config = {
