@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <style type="text/css">
+
+  body{
+  background-image: url("Images/b4.png");
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+
+ text-transform: uppercase;
+    font-family: League Gothic, Lato, Arial Black;
+  }
+
+  #containerrrr{
+  width: 1415px;
+    margin: auto;
+
+
+  }
+  #header{
+    display: block;
+    height: 80px;
+    width: 100%;
+    border-bottom-radius: 10px;
+    background-color:  #333333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 35px;
+  }
+
+  #username{
+    color: white;
+    font-size: 50px;
+    margin-left: 50px;
+    margin-top: 10px;
+    display: block;
+  }
+
+  #menu{
+    color: white;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+
+  #usersearch{
+    background-color: #333333;
+    height: 30px;
+    width: 220px;
+    display: block;
+    margin-top: -28px;
+    border-radius: 20px;
+    margin-right: 108px;
+    color: white;
+    border: 1px solid white;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 30px;
+    float: right;
+  }
+
+
+  #pp{
+    float: right;
+    margin-top: -46px;
+    margin-right: 20px;
+  }
+
+#a{
+  float: right;
+  margin-top: -46px;
+  margin-right: 40px;
+}
+
+#m{
+  float: right;
+  margin-top: -46px;
+  margin-right: 40px;
+}
+
+#b
+{
+  float: right;
+  margin-top: -46px;
+  margin-right: 40px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+#myDropdown{
+  display: block;
+  margin-top: -38px;
+
+  margin-left: 752px;
+
+width: 238px;
+
+  float: right;
+}
+
+
+
+
+
+
+a:link {
+    color: white;
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: white;
+    text-decoration: none;
+
+}
+
+/* mouse over link */
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+/* selected link */
+a:active {
+    color: white;
+    text-decoration: none;
+}
+
+#secondarymenu{
+height: 600px;
+width: 20%;
+  background-color: orange;
+  float: left;
+  margin-top: 90px;
+}
+
+#adapter{
+  width: 75%;
+  height: 600px;
+  background-color: white;
+  float: left;
+  margin-left: 10px;
+  margin-top: 90px;
+}
+
+  </style>
+
+  <script type="text/javascript">
+var userID;
+var usname;
+var apiKey = "iaux7giB5Ct1eR31ZpWUPF2wPJXwyA4NjCUoaqcm";
+var request = new XMLHttpRequest();
+const Url = "https://api.challonge.com/v1/tournaments/{tournament}/participants";
+var itemJSON;
+
+  function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+    var imgg = document.createElement('imgg');
+      var firebaseref = firebase.database().ref();
+      var database = firebase.database();
+      var usertext = document.getElementById("usersearch").value;
+      database.ref('/Users/').on('value',function(snap) {
+          unames = [];
+                  snap.forEach(function(item) {
+                  var usernames = item.val();
+                  var length = usertext.length;
+                  var newuser = usernames.name.toString();
+                  var newnew = newuser.slice(0, length);
+                    if(usertext == "")
+                    {
+                      unames = [];
+
+                    }
+                    else if(usertext.toLowerCase() == newnew.toLowerCase()){
+                    unames.push(usernames);
+
+
+                  }
+
+
+
+                })
+ document.getElementById("myDropdown").innerHTML = "";
+
+     var tbl = document.createElement('table');
+
+    for(var i = 0; i < unames.length; i++){
+
+      var row = tbl.insertRow(i);
+      row.style.backgroundColor = "#1aa0e0";
+      row.style.height = "50px";
+      row.style.width = "700px";
+      row.style.borderRadius = "25px";
+      var cell1 = row.insertCell(0);
+      cell1.style.width = "700px";
+        cell1.style.borderRadius = "25px";
+        cell1.style.fontSize = "40px";
+        cell1.style.fontFamily = "sans-serif";
+        var img = document.createElement('img');
+        img.src = unames[i].pic;
+        img.style.height = "50px";
+        img.style.width = "50px";
+        img.style.float = "left";
+        img.style.borderColor = "white";
+        img.style.borderWidth = "Thick";
+      cell1.innerHTML = unames[i].name;
+      cell1.style.textAlign = "center";
+      cell1.id = unames[i].id;
+      otheruserID = unames[i].id;
+      cell1.onclick = function () {
+                  userNameTableText(this);
+            };
+    cell1.appendChild(img);
+    cell1.appendChild(imgg);
+      var div = document.getElementById('myDropdown');
+         div.appendChild(tbl);
+    }
+              })
+}
+
+
+
+//  userID = firebase.auth().currentUser.uid;
+
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+var picpicpic;
+
+function userNameTableText(d){
+  var otheruserID = d.id;
+  firebase.database().ref(userID).update({
+
+  default: d.id,
+});
+
+window.location.href = "other.htm";
+
+}
+
+var toid;
+
+function load(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+
+
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+
+          // User is signed in.
+        userID = firebase.auth().currentUser.uid;
+
+        var trylq = firebase.database().ref().child(userID + '/name/');
+        trylq.on('value', function(snapshot) {
+          usname = snapshot.val();
+          document.getElementById("usersearch").placeholder = usname;
+
+        });
+
+        var ladder = firebase.database().ref().child(userID + '/tournamentid/tournamentid/');
+        ladder.on('value', function(snapshot) {
+           toid = snapshot.val();
+            loadbracket(toid);
+        });
+
+        var instant = firebase.database().ref().child(userID + '/instant/');
+        instant.on('value', function(snapshot) {
+          var instant = snapshot.val();
+        });
+
+
+        var earningsq = firebase.database().ref().child(userID + '/pic/');
+        earningsq.on('value', function(snapshot) {
+          picpicpic = snapshot.val();
+          document.getElementById("pp").src = picpicpic;
+
+        });
+
+        var earningsq = firebase.database().ref().child(userID + '/pic/');
+        earningsq.on('value', function(snapshot) {
+          picpicpic = snapshot.val();
+          document.getElementById("pp").src = picpicpic;
+
+        });
+
+            //dostuffhere
+
+      }
+    else{
+window.location.href = "signin.htm";
+    }});
+}
+
+function loadbracket(d){
+  var toid = d;
+var x = document.createElement("IFRAME");
+x.height="500px";
+x.width ="99%";
+x.src = "http://challonge.com/" + toid + '/module';
+var ti = document.getElementById("adapter");
+ti.appendChild(x);
+
+}
+var myTeamId = "";
+function myteam(){
+  document.getElementById("adapter").innerHTML = "";
+
+  var temid = firebase.database().ref().child(userID + '/teams/' + toid);
+  temid.on('value', function(snapshot) {
+    myTeamId = snapshot.val();
+    if(myTeamId == null)
+    {
+      createTeam();
+    }
+    else{
+      viewTeam();
+    }
+
+
+  });
+}
+
+function viewTeam(){
+
+}
+
+function createTeam(){
+var x = document.createElement("INPUT");
+var z = document.getElementById('adapter');
+x.id = "theteamName";
+z.appendChild(x);
+var a = document.createElement("Button");
+a.innerHTML = "Create";
+var name = document.getElementById("theteamName").value;
+a.onclick = function () {
+    var teamid = genteamid();
+var url2 = 'https://api.challonge.com/v1/tournaments/'+ toid + '/participants';
+alert(toid);
+    itemJSON = {
+      "api_key": apiKey,
+      "participant[name]": document.getElementById("theteamName").value,
+      "participant[misc]": teamid
+    }
+
+
+    $.post(url2, itemJSON, function(data, status){
+      console.log(data)
+    });
+
+
+    $.ajax({
+                    url: url2,
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: itemJSON,
+                    success: function( data, textStatus, jQxhr ){
+                        $('#response pre').html( data );
+                    },
+                    error: function( jqXhr, textStatus, errorThrown ){
+                        console.log( errorThrown );
+                    }
+                });
+
+
+
+
+};
+
+z.appendChild(a);
+
+
+}
+
+function genteamid(){
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+}
+  </script>
+
+
+</head>
+
+<body onload="load();">
+
+<div id="containerrrr">
+  <div id="header">
+    <!-- <div id="username">
+djkj
+    </div>
+    <center>
+    <img style="margin-top: -100px;" src="Images/ngelogo.png" height="150px;" width="150px;"/>
+  </CENTER>
+-->
+<div id="menu">
+Explore  &nbsp&nbsp&nbsp  Competetion &nbsp&nbsp&nbsp Community
+<div id="rightmenu">
+    <input onkeyup="myFunction()" id ="usersearch" placeholder="">
+    <div class="dropdown">
+
+      <div id="myDropdown" class="dropdown-content">
+
+
+      </div>
+    </div>
+
+
+<a href="profile.htm"><img height="80px" width="80px" id="pp" /></a>
+</div>
+
+</div>
+
+</div>
+<center>
+  <div id="mainContainer" style="width: auto;">
+    <div id="secondarymenu">
+      Bracket   <br />
+      <div onclick="myteam();">
+        My Team   <br /></div>
+      Rules     <br />
+      Chat
+    </div>
+    <div id="adapter">
+
+
+    </div>
+</div>
+
+</center>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCQtXd25fQmP_6zV-mxSs64O_9y2J20iI4",
+    authDomain: "poctest-c1a05.firebaseapp.com",
+    databaseURL: "https://poctest-c1a05.firebaseio.com",
+    projectId: "poctest-c1a05",
+    storageBucket: "poctest-c1a05.appspot.com",
+    messagingSenderId: "434071952145"
+  };
+  firebase.initializeApp(config);
+</script>
+</body>
+
+
+</html>

@@ -32,8 +32,6 @@
     top: 0;
     left: 0;
     font-size: 35px;
-
-
   }
 
   #username{
@@ -428,15 +426,8 @@ var usname;
     cell1.appendChild(imgg);
       var div = document.getElementById('myDropdown');
          div.appendChild(tbl);
-
-
     }
-
               })
-
-
-
-
 }
 
 
@@ -656,7 +647,15 @@ function lololol(d){
 }
 
 function tournamentfill(d){
-  var tournmanetId = d.id;
+  var database = firebase.database();
+  var dd = d.id
+
+  firebase.database().ref(userID + '/tournamentid/').update({
+  tournamentid: dd,
+  })
+
+  window.location.href = "tournament.htm";
+
 
 }
 

@@ -192,7 +192,7 @@ width: 238px;
 margin-top: 80px;
 margin-left: 5px;
   height: 450px;
-  width: 37.9%;
+  width: 25.9%;
   display: block;
   background-color:  #f2f2f2
 ;
@@ -206,10 +206,9 @@ margin-left: 5px;
   margin-top: 80px;
   margin-left: 5px;
     height: 600px;
-    width: 33.9%;
+    width: 35.9%;
     display: block;
-    background-color:  #f2f2f2
-;
+    background-color:  #f2f2f2;
     float: left;
     border-radius: 10px;
     color: black;
@@ -219,6 +218,7 @@ margin-left: 5px;
   width: 100%;
   height: 550px;
     border-bottom: 1px solid white;
+    overflow: scroll;
 
 
 }
@@ -493,7 +493,7 @@ function load(){
         instant.on('value', function(snapshot) {
           var instant = snapshot.val();
 
-          run(instant);
+
 
 
 
@@ -558,17 +558,16 @@ function lololol(postfill){
                 var postfill = postfill;
                   document.getElementById("ff").innerHTML = "";
                   var posttable = document.createElement('table');
-
                   for(var i = 0; i < postfill.length; i++){
                     var row = posttable.insertRow(checkcheck);
-                    row.style.backgroundColor = "#1aa0e0";
-                    row.style.height = "100px";
-                    row.style.width = "700px";
+                    row.style.backgroundColor = "purple";
+                    row.style.height = "140px";
+                    row.style.width = "300px";
                     checkcheck++;
                     var cell1 = row.insertCell(0);
                     cell1.colspan = "2";
-                    cell1.style.width = "700px";
-                    cell1.style.height = "100px";
+                    cell1.style.width = "300px";
+                    cell1.style.height = "140px";
                     cell1.style.borderBottomLeftRadius = "0px";
                           cell1.style.borderBottomRightRadius = "0px";
                           cell1.style.borderTopLeftRadius = "25px";
@@ -597,9 +596,9 @@ function lololol(postfill){
                                       checkcheck++;
                                         var cell2 = row2.insertCell(0);
                                       row2.style.height = "30px";
-                                      row2.style.width = "700px";
-                                      row2.style.backgroundColor = "#1aa0e0";
-                                      cell2.style.width = "350px";
+                                      row2.style.width = "300px";
+                                      row2.style.backgroundColor = "purple";
+                                      cell2.style.width = "30px";
                                       cell2.style.height = "30px";
                                         cell2.style.borderBottomLeftRadius = "25px";
                                               cell2.style.borderBottomRightRadius = "25px";
@@ -1091,90 +1090,7 @@ function ig(d){
 window.location.href = "other.htm";
 
 }
-function tableText(d){
-  var dd = d;
-  var firebaseref = firebase.database().ref();
-  var database = firebase.database();
-var otheruserID = dd.data;
-var oomessage = dd.data;
-  if(dd.data == userID)
-  {
-firebase.database().ref("ScrimFinder/" + dd.id).remove();
-  }else{
 
-
-firebase.database().ref("ScrimFinder/" + dd.id).remove();
-
-    var nnnnn;
-    var cccc = firebase.database().ref().child(oomessage + '/name/');
-    cccc.once('value', function(snapshot) {
-      nnnnn = snapshot.val();
-
-
-      var data =
-      {
-        senderusername: usname,
-        senderuserid: userID,
-        text: "I accepted your Scrim Finder",
-        recievername: nnnnn,
-        recieverid: oomessage,
-
-
-      }
-
-    //var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
-    //var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
-    var newuserkey = firebase.database().ref().child('/Messages/' + userID + '/' + oomessage).push().key;
-    var other = firebase.database().ref().child('/Messages/' + oomessage + '/' + userID).push().key;
-
-
-
-    var updates = {};
-    var u = {};
-    //  updates[stupid.otheruserID + '/posts/' + newPostKey] = data;
-    //  updates[userID + '/posts/' + newPostKey] = data;
-    updates['/Messages/' + userID + '/' + oomessage + '/' + newuserkey] = data;
-    updates['/Messages/' + oomessage + '/' + userID + '/' + other] = data;
-
-
-    updates[userID + '/LastMessage/' + oomessage] = data;
-    updates[oomessage + '/LastMessage/' + userID] = data;
-    updates[userID + '/instant/'] = oomessage;
-    updates[otheruserID + '/instant/'] = userID;
-
-    return firebase.database().ref().update(updates);
-    return firebase.database().ref().update(u);
-
-    run(oomessage);
-
-
-
-
-
-    });
-
-
-
-  }
-}
-
-function create(){
-
-var zzz = document.getElementById("upleft");
-
-zzz.innerHTML = "<center> HardPoints &nbsp&nbsp&nbsp SnDs &nbsp&nbsp&nbsp&nbsp CTFs </center>";
-zzz.innerHTML += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<select id="hardpoint"> <option value="0">0 </option><option value="1">1 </option><option value="2">2 </option><option value="3">3 </option><option value="5">5 </option></select>';
-
-zzz.innerHTML += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<select id="snd"> <option value="0">0 </option><option value="1">1 </option><option value="2">2 </option><option value="3">3 </option><option value="5">5 </option></select>';
-
-zzz.innerHTML += '&nbsp&nbsp&nbsp&nbsp&nbsp<select id="ctf"> <option value="0">0 </option><option value="1">1 </option><option value="2">2 </option><option value="3">3 </option><option value="5">5 </option></select>';
-zzz.innerHTML += "<hr />";
-
-zzz.innerHTML += '<center> &nbsp&nbsp&nbsp&nbsp&nbsp<select id="rule"> <option value="CWL Rules"> CWL Rules </option> </option><option value="UMG Rules"> UMG Rules </option><option value="NGE Rules">NGE Rules </option></select> </center>';
-zzz.innerHTML += '<center> &nbsp&nbsp&nbsp&nbsp&nbsp<select id="tier"> <option value="High Tier"> High Tier </option> </option><option value="Mid Tier"> Mid Tier </option><option value="Low Tier"> Low Tier </option></select> </center>';
-zzz.innerHTML += '<center><button onclick="cc();"> Post </button></center>';
-
-}
 
 function cc(){
 var database = firebase.database();
@@ -1588,30 +1504,6 @@ Explore  &nbsp&nbsp&nbsp  <a href="comp.htm">Competetion</a> &nbsp&nbsp&nbsp Com
 <a href="profile.htm"><img height="80px" width="80px" id="pp" /></a>
 </div>
 
-</div>
-</div>
-<div id="left">
-<div id="upleftt">
-  <center>
-Tournaments  &nbsp&nbsp <span onclick="free();"> F/A </span> &nbsp&nbsp <span onclick="scrims();"> Scrims </span>
-  <div id="upleft">
-  </div>
-<hr />
-</center>
-</div>
-
-<div id="botleft">
-  <div id="leftl" style="margin-top:1px; display: inline; float: left;"><button id="backf" onclick="frag();">back</button></div>
-<div id="bottop">
-
-</div>
-<div id="botbot">
-
-</div>
-<div id="botbotbot">
-<input id="usertypetype" placeholder="">
-  <button id="postt" onclick="send();"> Send </button>
-</div>
 </div>
 </div>
 <div id="center">

@@ -484,10 +484,8 @@ function aboutSelect(){
   document.getElementById("matchesNav").style.borderTop = "0px solid black";
   document.getElementById("matchesNav").style.borderLeft = "0px solid black";
   document.getElementById("matchesNav").style.borderRight = "0px solid black";
-
-
-
 }
+
 var ddddd = 0;
 
 function rosterAdapter(d){
@@ -495,28 +493,20 @@ function rosterAdapter(d){
   var psn = [];
   var pic = [];
   var d = d;
-
-    var database = firebase.database();
-    var count = d.length;
+  var database = firebase.database();
+  var count = d.length;
 
     for(var i = 0; i < d.length; i++)
     {
       ddddd = 1;
             var names = firebase.database().ref().child(d[i] + '/name/');
           names.on('value', function(snapshot) {
-
-
        name.push(snapshot.val());
            });
-
            var psnn = firebase.database().ref().child(d[i] + '/psn/');
          psnn.on('value', function(snapshot) {
-
        psn.push(snapshot.val());
           });
-
-
-
           var picc = firebase.database().ref().child(d[i] + '/pic/');
         picc.on('value', function(snapshot) {
         var t = snapshot.val();
@@ -527,17 +517,8 @@ function rosterAdapter(d){
         rosterfill(name, psn, pic, d);
       }
     });
-
-
     }
-
-
   }
-
-
-
-
-
 
 var remov = false;
 function rosterfill(a, b, c, d){
@@ -611,24 +592,15 @@ var id = d;
     //sspan.
             var div = document.getElementById('tableViewController');
                div.appendChild(posttable);
-
-
 }
 }
-
-
 function tableText(d){
   var d;
   firebase.database().ref(userID).update({
-
   default: d.id,
 });
-
 window.location.href = "other.htm";
-
 }
-
-
 
 function rosterSelect(){
   document.getElementById("rosterNav").style.borderTop = "3px solid black";
@@ -724,11 +696,6 @@ rosterSelect();
 }
 
 function rosterAdapterKick(){
-
-
-
-
-
 }
 
 

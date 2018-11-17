@@ -20,8 +20,6 @@
   #containerrrr{
   width: 1415px;
     margin: auto;
-
-
   }
   #header{
     display: block;
@@ -309,10 +307,6 @@ border-radius: 10px;
 
 
 }
-#botbotbot{
-
-
-}
 
 #texttext{
   font-size: 20px;
@@ -407,6 +401,7 @@ float: left;
   display: block;
   margin-left: 20px;
   margin-top: 10px;
+  color: white;
 }
 
 
@@ -428,6 +423,7 @@ var userID;
 var usname;
 var ladderid;
 var teamid;
+var tnam;
   function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
     var imgg = document.createElement('imgg');
@@ -568,7 +564,7 @@ function load(){
 var wins;
 var loses;
 var xp;
-var tnam;
+
 var picid;
               var teamw = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + teamid + '/w');
               teamw.on('value', function(snapshot) {
@@ -735,11 +731,8 @@ var tss = [];
 database.ref('/Ladder/' + ladderid + '/t/').once('value', function(snap) {
   var fa = [];
   snap.forEach(function(item) {
-
-
     tss.unshift(item.val());
-  })
-
+  });
 let keys = Object.keys(tss);
 keys.sort(function(a, b) { return tss[a].x - tss[b].x });
 
@@ -754,24 +747,18 @@ header.style.textAlign = "center";
 var cell1 = row.insertCell(1);
 cell1.innerHTML = "Team name";
 cell1.width = "250px";
-
-
 var cell2 = row.insertCell(2);
 cell2.innerHTML = "XP";
 cell2.width = "30px";
-
 var cell3 = row.insertCell(3);
 cell3.innerHTML = "W/L";
 cell3.width = "30px";
-
 var cell4 = row.insertCell(4);
 cell4.innerHTML = "PCT";
 cell4.width = "35px";
-
 var cell5 = row.insertCell(5);
 cell5.innerHTML = "√";
 cell5.width = "15px";
-
 var div = document.getElementById("centerff");
 div.appendChild(x);
 var rank = 0;
@@ -779,9 +766,6 @@ for(var i = tss.length - 1; i >= 0; i--)
 {
 rank++;
   var t = keys[i];
-
-
-
   var row = x.insertRow(rank);
   row.style.backgroundColor = "red";
   var cell = row.insertCell(0);
@@ -848,7 +832,7 @@ div.appendChild(x);
 
   }
 
-
+var matchez = [];
   function matchfinderclick(){
     var firebaseref = firebase.database().ref();
     var database = firebase.database();
@@ -861,15 +845,315 @@ div.appendChild(x);
         document.getElementById("centerff").innerHTML += '<button id="creatematch" onclick="cre();"> Create match </button>';
 
         var datebase = firebase.database();
-        database.ref('/Ladder/' + ladderid + '/matchfinder').on('value', function(snap) {
-          var fa = [];
+        database.ref('/Ladder/' + ladderid + '/MatchFinder/').on('value', function(snap) {
+           matchez = [];
           snap.forEach(function(item) {
-            fa.shift(item.val());
-          })
+            matchez.push(item.val());
 
-        });
+          })
+matchFinderAdapter();
+
+        })
 
   }
+
+  function matchFinderAdapter(){
+
+var posttable = document.createElement('table');
+for(var i = 0; i < matchez.length; i++){
+  var row = posttable.insertRow(i);
+  row.style.height = "50px";
+  row.style.width = "700px";
+  row.style.backgroundColor = "grey";
+  var cell1 = row.insertCell(0);
+  cell1.colspan = "2";
+  cell1.style.width = "700px";
+  cell1.style.height = "50px";
+  cell1.style.borderBottomLeftRadius = "0px";
+  cell1.style.borderBottomRightRadius = "0px";
+  cell1.style.borderTopLeftRadius = "25px";
+  cell1.style.borderTopRightRadius = "25px";
+  cell1.style.fontSize = "40px";
+  cell1.style.fontFamily = "sans-serif";
+  var sspan = document.createElement('span');
+  sspan.style.fontSize = "10px";
+  sspan.style.color = "blue";
+  sspan.id = "textext";
+  //cell1.style.textAlign = "center";
+  cell1.id = i;
+  cell1.innerHTML += matchez[i].rulset;
+  cell1.onclick = function () {
+      accept(this);
+  };
+
+
+//sspan.
+
+}
+
+var div = document.getElementById('centerff');
+   div.appendChild(posttable);
+   var rulset = document.getElementById("rule").value;
+       var subm = document.createElement("Button");
+
+       subm.innerHTML="Submit";
+
+       subm.onclick = function() { // Note this is a function
+
+         var data = {
+       name: tnam,
+       posterid: teamid,
+       rulset: rulset,
+       roster: mFinderRoster,
+       }
+
+       var updates = {};
+
+     var newPostKey = firebase.database().ref().child('/Ladder/' + ladderid + '/MatchFinder/').push().key;
+     updates['/Ladder/' + ladderid + '/MatchFinder/' + newPostKey] = data;
+     return firebase.database().ref().update(updates);
+       };
+
+
+    div.appendChild(subm);
+
+
+
+
+
+
+  }
+function accept(d)
+{
+  var zz = d.id;
+  var dat = firebase.database();
+  var farr = [];
+  for(var i = 0; i < 1; i++)
+  {
+      dat.ref('/Ladder/' + ladderid + '/t/' + teamid + '/roster').on('value', function(snap) {
+        snap.forEach(function(item) {
+          farr.unshift(item.val());
+        });
+    userNameFetch1(farr, zz);
+      });
+  }
+}
+
+function userNameFetch1(d, z){
+  var z = z;
+  var dat = firebase.database();
+var farr = d;
+var ue = [];
+  var count = d.length;
+  for(var i = 0; i < d.length; i++){
+    var names = firebase.database().ref().child(farr[i] + '/name/');
+  names.on('value', function(snapshot) {
+ue.push(snapshot.val());
+if(i == count)
+{
+ if(ddddd != 1)
+ {
+      ddddd = 1;
+ }
+ else{
+      userSelect1(ue, farr, z);
+ }
+}
+   });
+  }
+}
+
+function userSelect1(d, a, z){
+var postfill = d;
+var userids = a;
+var z = z;
+var div = document.getElementById('centerff').innerHTML = "";
+var posttable = document.createElement('table');
+
+for(var i = 0; i < postfill.length; i++){
+  var row = posttable.insertRow(i);
+
+  row.style.height = "50px";
+  row.style.width = "700px";
+  row.style.backgroundColor = "grey";
+
+  var cell1 = row.insertCell(0);
+  cell1.colspan = "2";
+  cell1.style.width = "700px";
+  cell1.style.height = "50px";
+  cell1.style.borderBottomLeftRadius = "0px";
+  cell1.style.borderBottomRightRadius = "0px";
+  cell1.style.borderTopLeftRadius = "25px";
+  cell1.style.borderTopRightRadius = "25px";
+    cell1.style.fontSize = "40px";
+    cell1.style.fontFamily = "sans-serif";
+
+    var sspan = document.createElement('span');
+    sspan.style.fontSize = "10px";
+    sspan.style.color = "blue";
+    sspan.id = "textext";
+                  //cell1.style.textAlign = "center";
+  cell1.id = userids[i];
+cell1.innerHTML += postfill[i];
+  cell1.onclick = function () {
+        ll(this);
+  };
+
+
+//sspan.
+
+}
+
+var div = document.getElementById('centerff');
+       div.appendChild(posttable);
+       var subm = document.createElement("Button");
+       subm.innerHTML="Accept";
+       subm.onclick = function() { // Note this is a function
+       var matchid = MatchIdGenerator();
+       var mFinderRosterIdId = {};
+       for(var ee = 0; ee < mFinderRoster.length; ee++){
+           mFinderRosterIdId[mFinderRoster[ee]] = mFinderRoster[ee];
+         }
+
+         var map = mapGenerator(z);
+
+        var otherTeamDatabase = {
+           against: tnam,
+           againstid: teamid,
+           date: 'Nov 8th',
+           key: matchid,
+           teamid: matchez[z].name,
+           teamname: matchez[z].posterid,
+           time: '10pm EDT',
+           againstroster: mFinderRosterIdId,
+           roster: matchez[z].roster,
+           ruleset: matchez[z].rulset,
+           map: map,
+         }
+
+         var myTeamDataBase = {
+             against: matchez[z].name,
+             againstid: matchez[z].posterid,
+             date: 'Nov 8th',
+             key: matchid,
+             teamid: teamid,
+             teamname: tnam,
+             time: '10PM EDT',
+             againstroster: matchez[z].roster,
+             roster:mFinderRosterIdId,
+              ruleset: matchez[z].rulset,
+              map: map,
+           }
+
+
+           var updates = {};
+            var updates1 = {};
+
+         var newPostKey = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + tnam + '/Matches/').push().key;
+
+        var newPostKey1 = firebase.database().ref().child('Ladder/' + ladderid + '/t/' + matchez[z].posterid + '/Matches/').push().key;
+         updates['Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid] = myTeamDataBase;
+        updates1['Ladder/' + ladderid + '/t/' + matchez[z].posterid + '/Matches/' + matchid] = otherTeamDatabase;
+
+        zzzz(updates1);
+         zzzzz(updates);
+
+         matchpage(matchid);
+
+
+       };
+    div.appendChild(subm);
+}
+function zzzz(z){
+  return firebase.database().ref().update(z);
+}
+function zzzzz(z){
+  return firebase.database().ref().update(z);
+}
+function mapGenerator(z){
+    var z = z;
+    var hp = "0123";
+    var snd = "0123";
+    var ctf = "012";
+    var hardpoint = ['Slums', 'Standoff', 'Raid', 'Yemen'];
+    var SnD = ['Standoff', 'Raid', 'Express', 'Meltdown'];
+    var CTF = ['Standoff', 'Raid', 'Slums'];
+    var map1 = hp.charAt(Math.floor(Math.random() * hp.length));
+    var map2 = snd.charAt(Math.floor(Math.random() * snd.length));
+    var map3 = ctf.charAt(Math.floor(Math.random() * ctf.length));
+    var map4 = hp.charAt(Math.floor(Math.random() * hp.length));
+    var map5 = snd.charAt(Math.floor(Math.random() * snd.length));
+
+    var updates = {};
+    updates['map1'] = hardpoint[map1];
+    updates['map2'] = hardpoint[map2];
+    updates['map3'] = hardpoint[map3];
+    updates['map4'] = hardpoint[map4];
+    updates['map5'] = hardpoint[map5];
+
+    var host1;
+    var host2;
+    var host3;
+    var host4;
+    var host5;
+
+  var h1 = Math.floor((Math.random() * 10) + 1);
+  if(h1 % 2 == 0){
+    host1 = tnam;
+  }
+  else{
+      host1 = matchez[z].name;
+  }
+
+
+  var h2 = Math.floor((Math.random() * 10) + 1);
+  if(h2 %2 == 0){
+    host2 = tnam;
+  }
+  else{
+      host2 = matchez[z].name;
+  }
+
+  var h3 = Math.floor((Math.random() * 10) + 1);
+  if(h3 %2 == 0){
+    host3 = tnam;
+  }
+  else{
+      host3 = matchez[z].name;
+  }
+
+  var h4 = Math.floor((Math.random() * 10) + 1);
+  if(h4 %2 == 0){
+    host4 = tnam;
+  }
+  else{
+      host4 = matchez[z].name;
+  }
+
+  var h5 = Math.floor((Math.random() * 10) + 1);
+  if(h5 %2 == 0){
+    host5 = tnam;
+  }
+  else{
+      host5 = matchez[z].name;
+  }
+
+  updates['host1'] = host1;
+  updates['host2'] = host2;
+  updates['host3'] = host3;
+  updates['host4'] = host4;
+  updates['host5'] = host5;
+
+    return(updates);
+}
+
+function MatchIdGenerator(){
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (var i = 0; i < 10; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+}
 
 function cre(){
   var firebaseref = firebase.database().ref();
@@ -883,38 +1167,26 @@ function cre(){
   var r = document.getElementById("rule");
   var rul = r.options[r.selectedIndex].value;
   var datebase = firebase.database();
+
 var d =0;
   var farr = [];
   var username = [];
-  database.ref('/Ladder/' + ladderid + '/' + teamid + '/Roster').on('value', function(snap) {
+  var nam = [];
+  for(var i = 0; i < 1; i++)
+  {
+      database.ref('/Ladder/' + ladderid + '/t/' + teamid + '/roster').on('value', function(snap) {
+        snap.forEach(function(item) {
+          farr.unshift(item.val());
+        });
+    userNameFetch(farr);
+      });
 
-
-    snap.forEach(function(item) {
-      farr.unshift(item.val());
-    })
-
-
-for(var i = 0; i < farr.length; i++){
-  var ch = farr[i];
-  database.ref(ch + '/name/').on('value', function(snap) {
-
-    snap.forEach(function(item) {
-      username.shift(item.val());
-    })
-
-    for(var i = 0; i < username.length; i++)
-    {
-      document.getElementById("centerff").innerHTML += username[i];
-    }
-  });
-
-
-}
+  }
 
 
 
 
-  });
+
 
 //zzz.innerHTML += '<center><button onclick="cc();"> Post </button></center>';
 
@@ -929,6 +1201,149 @@ type: type,
 
 
 }
+var ddddd = 0;
+
+function userNameFetch(d){
+    var dat = firebase.database();
+  var farr = d;
+  var ue = [];
+    var count = d.length;
+    for(var i = 0; i < d.length; i++){
+
+      var names = firebase.database().ref().child(farr[i] + '/name/');
+    names.on('value', function(snapshot) {
+ ue.push(snapshot.val());
+
+ if(i == count)
+ {
+   if(ddddd != 1)
+   {
+        ddddd = 1;
+   }
+   else{
+        userSelect(ue, farr);
+
+   }
+
+ }
+
+     });
+
+
+    }
+
+
+
+}
+var mFinderRoster = [];
+function userSelect(d, a){
+var postfill = d;
+var userids = a;
+
+
+var posttable = document.createElement('table');
+
+for(var i = 0; i < postfill.length; i++){
+  var row = posttable.insertRow(i);
+
+  row.style.height = "50px";
+  row.style.width = "700px";
+  row.style.backgroundColor = "grey";
+
+  var cell1 = row.insertCell(0);
+  cell1.colspan = "2";
+  cell1.style.width = "700px";
+  cell1.style.height = "50px";
+  cell1.style.borderBottomLeftRadius = "0px";
+  cell1.style.borderBottomRightRadius = "0px";
+  cell1.style.borderTopLeftRadius = "25px";
+  cell1.style.borderTopRightRadius = "25px";
+    cell1.style.fontSize = "40px";
+    cell1.style.fontFamily = "sans-serif";
+
+    var sspan = document.createElement('span');
+    sspan.style.fontSize = "10px";
+    sspan.style.color = "blue";
+    sspan.id = "textext";
+                  //cell1.style.textAlign = "center";
+  cell1.id = userids[i];
+cell1.innerHTML += postfill[i];
+  cell1.onclick = function () {
+        ll(this);
+  };
+
+
+//sspan.
+
+}
+
+var div = document.getElementById('centerff');
+   div.appendChild(posttable);
+   var rulset = document.getElementById("rule").value;
+       var subm = document.createElement("Button");
+
+       subm.innerHTML="Submit";
+
+       subm.onclick = function() { // Note this is a function
+
+
+       var updates = {};
+
+       var mFinderRosterIdId = {};
+       for(var ee = 0; ee < mFinderRoster.length; ee++){
+          mFinderRosterIdId[mFinderRoster[ee]] = mFinderRoster[ee];
+       }
+
+     var newPostKey = firebase.database().ref().child('/Ladder/' + ladderid + '/MatchFinder/').push().key;
+     var data = {
+   name: tnam,
+   posterid: teamid,
+   rulset: rulset,
+   roster: mFinderRosterIdId,
+   id: newPostKey,
+   }
+
+     updates['/Ladder/' + ladderid + '/MatchFinder/' + newPostKey] = data;
+     return firebase.database().ref().update(updates);
+       };
+    div.appendChild(subm);
+}
+
+function ll(d){
+  if(document.getElementById(d.id).style.backgroundColor == "blue")
+  {
+
+    for( var i = 0; i < mFinderRoster.length; i++){
+   if ( mFinderRoster[i] == d.id) {
+     mFinderRoster.splice(i, 1);
+
+   }
+}
+    document.getElementById(d.id).style.backgroundColor = "grey";
+    mFinderRoster.push(d.id);
+  }
+  else{
+    document.getElementById(d.id).style.backgroundColor = "blue";
+    mFinderRoster.push(d.id);
+
+  }
+
+}
+
+
+function matchpage(d){
+var database = firebase.database();
+var dd = d;
+
+firebase.database().ref(userID + '/mid/').update({
+mid: dd,
+})
+
+window.location.href = "match.htm";
+
+
+
+}
 
 
   function rulesclick(){
@@ -936,11 +1351,7 @@ type: type,
         document.getElementById("rankingtab").style.color="white";
         document.getElementById("Rules").style.color="blue";
         document.getElementById("MatchfinderTab").style.color="white";
-
-
   }
-
-
 
   </script>
 
@@ -996,8 +1407,7 @@ Explore  &nbsp&nbsp&nbsp  Competetion &nbsp&nbsp&nbsp News  &nbsp&nbsp&nbsp Stor
 
 </div>
 <div id="centerright">
-Instant Match Finder create <br />
-Dispand Team <br />
+
 
 
 </div>

@@ -9,7 +9,6 @@
   body{
   background-image: url("Images/b4.png");
   height: 100%;
-
   /* Center and scale the image nicely */
   background-position: center;
 
@@ -20,8 +19,6 @@
   #containerrrr{
   width: 1415px;
     margin: auto;
-
-
   }
   #header{
     display: block;
@@ -33,8 +30,6 @@
     top: 0;
     left: 0;
     font-size: 35px;
-
-
   }
 
   #username{
@@ -381,8 +376,6 @@ function load(){
   var firebaseref = firebase.database().ref();
   var database = firebase.database();
 
-
-
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
 
@@ -393,10 +386,7 @@ function load(){
         trylq.on('value', function(snapshot) {
           usname = snapshot.val();
           document.getElementById("usersearch").placeholder = usname;
-
         });
-
-
 
         var earningsq = firebase.database().ref().child(userID + '/pic/');
         earningsq.on('value', function(snapshot) {
@@ -420,7 +410,8 @@ function load(){
         var ladder = firebase.database().ref().child(userID + '/ladderid/ladderid/');
         ladder.on('value', function(snapshot) {
           ladderid = snapshot.val();
-laddermaybe();
+          laddermaybe();
+          messageAdapter();
           var teami = firebase.database().ref().child(userID + '/' + ladderid + '/');
           teami.on('value', function(snapshot) {
 
@@ -457,12 +448,6 @@ laddermaybe();
 
               });
 
-
-
-
-
-
-
             }
           });
 
@@ -480,32 +465,463 @@ window.location.href = "signin.htm";
 }
 
 var matchinfo = [];
+var againstName;
+var againstId;
+var date;
+var key;
+var time;
+var tnam;
+var tid;
+
 function matchinfoAdapter(d){
   var dd = d;
 }
 
 function laddermaybe(){
   var database = firebase.database();
-        database.ref('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid).on('value', function(snap) {
-          snap.forEach(function(item) {
-            matchinfo.push(item.val());
-          }
 
-        )
-        matchinfoAdapter(matchinfo);
-      })
+      var againstname = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/against/');
+      againstname.on('value', function(snapshot) {
+        againstName = snapshot.val();
+      });
+
+      var againstid = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/againstid/');
+      againstid.on('value', function(snapshot) {
+        againstId = snapshot.val();
+      });
+
+      var datedate = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/date/');
+      datedate.on('value', function(snapshot) {
+        date = snapshot.val();
+      });
+
+      var timetime = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/time/');
+      timetime.on('value', function(snapshot) {
+        time = snapshot.val();
+      });
+
+      var keykey = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/key/');
+      keykey.on('value', function(snapshot) {
+        key = snapshot.val();
+      });
+
+      var namename = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/teamname/');
+      namename.on('value', function(snapshot) {
+        tnam = snapshot.val();
+        ladderAdapter();
+      });
+
+
+
 }
 
+function ladderAdapter(){
+  document.getElementById("teamNameLeft").innerHTML = againstName;
+  document.getElementById("teamNameRight").innerHTML = tnam;
+  mapAdapter();
+  rosterAdapter();
+  myrosterAdapter();
+}
 
+function myrosterAdapter(){
+  var rosterArray = [];
+  var database = firebase.database();
+        database.ref('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/roster/').on('value', function(snap) {
+          snap.forEach(function(item) {
+            rosterArray.push(item.val());
+          }
+        )
+          myrosterfill(rosterArray);
+        });
+}
+
+function myrosterfill(d)
+{
+  var name = [];
+  var psn = [];
+  var pic = [];
+  var d = d;
+  var database = firebase.database();
+  var count = d.length;
+
+    for(var i = 0; i < d.length; i++)
+    {
+      ddddd = 1;
+            var names = firebase.database().ref().child(d[i] + '/name/');
+          names.on('value', function(snapshot) {
+       name.push(snapshot.val());
+           });
+           var psnn = firebase.database().ref().child(d[i] + '/psn/');
+         psnn.on('value', function(snapshot) {
+       psn.push(snapshot.val());
+          });
+          var picc = firebase.database().ref().child(d[i] + '/pic/');
+        picc.on('value', function(snapshot) {
+        var t = snapshot.val();
+       pic.push(snapshot.val());
+
+      if(i == count || ((ddddd == 1) && i == count - 1))
+      {
+        myrosterfil(name, psn, pic, d);
+      }
+    });
+    }
+
+}
+
+function myrosterfil(a, b, c, d)
+{
+
+    var name = a;
+    var psn = b;
+    var pic = c;
+    var id = d;
+            var checkcheck = 0;
+            var postfill = postfill;
+              document.getElementById("rosterVCR").innerHTML = "";
+              var posttable = document.createElement('table');
+
+              for(var i = 0; i < name.length; i++){
+                var row = posttable.insertRow(checkcheck);
+
+                row.style.height = "50px";
+                row.style.width = "700px";
+                checkcheck++;
+                var cell1 = row.insertCell(0);
+                cell1.colspan = "2";
+                cell1.style.width = "700px";
+                cell1.style.height = "50px";
+                cell1.style.borderBottomLeftRadius = "25px";
+                cell1.style.borderBottomRightRadius = "25px";
+                cell1.style.borderTopLeftRadius = "25px";
+                cell1.style.borderTopRightRadius = "25px";
+                cell1.style.textAlign = 'right';
+                  cell1.style.fontSize = "20px";
+                  cell1.style.fontFamily = "sans-serif";
+                  var img = document.createElement('img');
+                  img.src = pic[i];
+                  img.style.height = "50px";
+                  img.style.width = "50px";
+                  img.style.float = "right";
+                  img.style.borderColor = "white";
+                  cell1.append(img);
+                  img.style.borderWidth = "Thick";
+                  var sspan = document.createElement('span');
+
+                  sspan.style.fontSize = "10px";
+                  sspan.style.color = "blue";
+                  sspan.id = "textext";
+                                //cell1.style.textAlign = "center";
+
+                cell1.id = d[i];
+
+                  row.style.backgroundColor = "#1aa0e0";
+                  cell1.onclick = function () {
+                             tableTText(this);
+                         };
+           cell1.innerHTML += "Name: " + name[i] + '<br  />' + 'PSN: ' + psn[i];
+
+                var div = document.getElementById('rosterVCR');
+                   div.appendChild(posttable);
+    }
+}
+
+function rosterAdapter(){
+
+  var rosterArray = [];
+
+  var database = firebase.database();
+        database.ref('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/againstroster/').on('value', function(snap) {
+          snap.forEach(function(item) {
+            rosterArray.push(item.val());
+          }
+        )
+          rosterfill(rosterArray);
+
+        });
+}
+
+function rosterfill(d){
+  var name = [];
+  var psn = [];
+  var pic = [];
+  var d = d;
+  var database = firebase.database();
+  var count = d.length;
+
+    for(var i = 0; i < d.length; i++)
+    {
+      ddddd = 1;
+            var names = firebase.database().ref().child(d[i] + '/name/');
+          names.on('value', function(snapshot) {
+       name.push(snapshot.val());
+           });
+           var psnn = firebase.database().ref().child(d[i] + '/psn/');
+         psnn.on('value', function(snapshot) {
+       psn.push(snapshot.val());
+          });
+          var picc = firebase.database().ref().child(d[i] + '/pic/');
+        picc.on('value', function(snapshot) {
+        var t = snapshot.val();
+       pic.push(snapshot.val());
+
+      if(i == count || ((ddddd == 1) && i == count - 1))
+      {
+        rosterfil(name, psn, pic, d);
+      }
+    });
+    }
+
+
+}
+
+function rosterfil(a, b, c, d)
+{
+
+  var name = a;
+  var psn = b;
+  var pic = c;
+  var id = d;
+          var checkcheck = 0;
+          var postfill = postfill;
+            document.getElementById("rosterVCL").innerHTML = "";
+            var posttable = document.createElement('table');
+
+            for(var i = 0; i < name.length; i++){
+              var row = posttable.insertRow(checkcheck);
+
+              row.style.height = "50px";
+              row.style.width = "700px";
+              checkcheck++;
+              var cell1 = row.insertCell(0);
+              cell1.colspan = "2";
+              cell1.style.width = "700px";
+              cell1.style.height = "50px";
+              cell1.style.borderBottomLeftRadius = "25px";
+              cell1.style.borderBottomRightRadius = "25px";
+              cell1.style.borderTopLeftRadius = "25px";
+              cell1.style.borderTopRightRadius = "25px";
+                cell1.style.fontSize = "20px";
+                cell1.style.fontFamily = "sans-serif";
+                var img = document.createElement('img');
+                img.src = pic[i];
+                img.style.height = "50px";
+                img.style.width = "50px";
+                img.style.float = "left";
+                img.style.borderColor = "white";
+                cell1.append(img);
+                img.style.borderWidth = "Thick";
+                var sspan = document.createElement('span');
+
+                sspan.style.fontSize = "10px";
+                sspan.style.color = "blue";
+                sspan.id = "textext";
+                              //cell1.style.textAlign = "center";
+
+              cell1.id = d[i];
+
+                row.style.backgroundColor = "#1aa0e0";
+                cell1.onclick = function () {
+                           tableTText(this);
+                       };
+
+
+
+
+         cell1.innerHTML += "Name: " + name[i] + '<br  />' + 'PSN: ' + psn[i];
+
+              var div = document.getElementById('rosterVCL');
+                 div.appendChild(posttable);
+  }
+
+
+}
+
+function tableTText(d){
+  var d;
+  firebase.database().ref(userID).update({
+  default: d.id,
+});
+window.location.href = "other.htm";
+
+}
+
+function mapAdapter(){
+  var firebaseref = firebase.database().ref();
+  var database = firebase.database();
+var m1;
+var h1;
+
+var m2;
+var h2;
+
+var m3;
+var h3;
+
+var m4;
+var h4;
+
+var m5;
+var h5;
+
+  var host11 = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/host1/');
+  host11.on('value', function(snapshot) {
+    h1 = snapshot.val();
+  });
+
+  var map11 = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/map1/');
+  host11.on('value', function(snapshot) {
+    m1 = snapshot.val();
+  });
+
+  var host22 = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/host2/');
+  host22.on('value', function(snapshot) {
+    h2 = snapshot.val();
+  });
+
+  var map22 = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/map2/');
+  map22.on('value', function(snapshot) {
+    m2 = snapshot.val();
+  });
+
+  var map33 = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/map3/');
+  map33.on('value', function(snapshot) {
+    m3 = snapshot.val();
+  });
+
+  var host33 = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/host3/');
+  host33.on('value', function(snapshot) {
+    h3 = snapshot.val();
+  });
+
+  var host44 = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/host4/');
+  host44.on('value', function(snapshot) {
+    h4 = snapshot.val();
+  });
+
+  var map44 = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/map4/');
+  map44.on('value', function(snapshot) {
+    m4 = snapshot.val();
+  });
+
+  var host355= firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/host5/');
+  host355.on('value', function(snapshot) {
+    h5 = snapshot.val();
+  });
+
+
+    var map55 = firebase.database().ref().child('/Ladder/' + ladderid + '/t/' + teamid + '/Matches/' + matchid + '/map/map5/');
+    map55.on('value', function(snapshot) {
+      m5 = snapshot.val();
+
+
+      document.getElementById("mapAdapter").innerHTML = m1 + ' ' + h1 + '<br />' +
+      m2 + ' ' + h2 + '<br />' +
+      m3 + ' ' + h3 + '<br />' +
+      m4 + ' ' + h4 + '<br />' +
+      m5 + ' ' + h5 + '<br />';
+
+      document.getElementById('matchinfoAdapter').innerHTML = 'Time: ' + time + '<br />' +
+      'Date: ' + date + '<br />' +
+      'key: ' + key;
+});
+
+
+}
+
+function messageAdapter(){
+var messaeges = [];
+  var database = firebase.database();
+        database.ref('/Ladder/' + ladderid + '/MatchChats/'+ matchid).on('value', function(snap) {
+          var messaeges = [];
+          snap.forEach(function(item) {
+            messaeges.push(item.val());
+          })
+        messageViewAdapter(messaeges);
+      })
+
+
+
+
+}
+
+function messageViewAdapter(postfill)
+{
+  var checkcheck = 0;
+  var postfill = postfill;
+    document.getElementById("messageViewAdapter").innerHTML = "";
+    var posttable = document.createElement('table');
+
+    for(var i = 0; i < postfill.length; i++){
+      var row = posttable.insertRow(checkcheck);
+      row.style.height = "40px";
+      row.style.width = "700px";
+      checkcheck++;
+      var cell1 = row.insertCell(0);
+      cell1.colspan = "2";
+      if(userID == postfill[i].from)
+      {
+        row.style.backgroundColor = "#1aa0e0";
+          cell1.style.borderBottomLeftRadius = "25px";
+      }
+      else{
+        row.style.backgroundColor = "green";
+          cell1.style.borderBottomRightRadius = "25px";
+      }
+      cell1.style.width = "700px";
+      cell1.style.height = "40px";
+      cell1.style.borderTopLeftRadius = "25px";
+      cell1.style.borderTopRightRadius = "25px";
+        cell1.style.fontSize = "40px";
+        cell1.style.fontFamily = "sans-serif";
+        var sspan = document.createElement('span');
+        sspan.innerHTML =  postfill[i].message;
+        sspan.style.fontSize = "10px";
+        sspan.style.color = "blue";
+        sspan.id = "textext";
+                      //cell1.style.textAlign = "center";
+      cell1.id = postfill[i].id;
+    //  cell1.onclick = function () {
+    //            tableText(this);
+      //      };
+        cell1.innerHTML += "<strong>" + '<span id="postname"> ' + postfill[i].name + '</span>' + "</strong>" + "&nbsp&nbsp&nbsp" + "<br />" + '<span id="texttext">' + sspan.innerHTML + '</span>';
+//sspan.
+      var div = document.getElementById('messageViewAdapter');
+         div.appendChild(posttable);
+}
+}
+
+function send(){
+    var usermessage = document.getElementById("text").value;
+    document.getElementById("text").value = "";
+
+
+  var sizecheck = usermessage.toLowerCase().search("font-size:");
+  var buttoncheck = usermessage.toLowerCase().search("</button>");
+  if(sizecheck != -1){
+    alert("You can not change the size of your font. Use <Strong> to bold :)");
+  }
+  else if(buttoncheck != -1){
+    alert("You can not add buttons. Use <a> to link :)");
+  }
+  else{
+            var data =
+                {
+                  name: usname,
+                  from: userID,
+                  message: usermessage,
+                }
+  //var newPostKey = firebase.database().ref().child(stupid.otheruserID + '/posts/').push().key;
+  //var userkey = firebase.database().ref().child(userID + '/posts/').push().key;
+  var newuserkey = firebase.database().ref().child('/Ladder/' + ladderid + '/MatchChats/' + matchid).push().key;
+  var updates = {};
+  updates['/Ladder/' + ladderid + '/MatchChats/' + matchid + '/' + newuserkey] = data;
+  return firebase.database().ref().update(updates);
+  }
+  location.reload();
+  }
 
   </script>
-
-
-
-
-
-
-
 </head>
 
 <body onload="load();">
@@ -520,7 +936,7 @@ djkj
   </CENTER>
 -->
 <div id="menu">
-Explore  &nbsp&nbsp&nbsp  Competetion &nbsp&nbsp&nbsp Community
+Explore  &nbsp&nbsp&nbsp  <a href="comp.htm">Competetion</a> &nbsp&nbsp&nbsp Community
 <div id="rightmenu">
 
 
@@ -544,33 +960,50 @@ Explore  &nbsp&nbsp&nbsp  Competetion &nbsp&nbsp&nbsp Community
 </div>
 <div id="centerConsole">
 
-    <div id="lowleft" style="display: inline; float: left; height: 300px; width: 50.0%; background-color: red;">
+    <div id="lowleft" style="display: inline; float: left; height: 150px; width: 50.0%; background-color: grey;">
 <center>
   <img style="" height="100px;" width="100px;" src="Images/ngelogo.png" />
   <div id="lowLeftText">
-
+<span id="teamNameLeft">TeamName</span>
   </div>
 </center>
     </div>
-    <div id="highright" style="display: inline; float: left; height: 300px; width: 50.0%; background-color: yellow;">
+    <div id="highright" style="display: inline; float: left; height: 150px; width: 50.0%; background-color: grey;">
       <center>
         <img style="" height="100px;" width="100px;" src="Images/ngelogo.png" />
         <div id="lowRightText">
-
+<span id="teamNameRight">TeamName</span>
         </div>
       </center>
+    </div>
+    <div id="centercenter" style="display: inline; float: left; height: 200px; width: 100%; background-color: white;">
+      <div id="mapAdapter" style="display: inline; float: left; height: 200px; width: 50%; background-color: blue;">
+
+      </div>
+      <div id="matchinfoAdapter" style="display: inline; float: left; height: 200px; width: 50%; background-color: yellow;">
+
+
+      </div>
     </div>
 
 
 
 
-  <div style="display: inline; float: left; background-color: black; height: 300px; width: 100%;" id="rosterVC">
+  <div style="display: inline; float: left; background-color: white; height: 200px; width: 50%;" id="rosterVCL">
+  </div>
+
+  <div style="display: inline; float: left; background-color: yellow; height: 200px; width: 50%;" id="rosterVCR">
   </div>
   </div>
 
 
   <div id="messageboard">
+  <div style="height: 420px; "id="messageViewAdapter">
 
+  </div>
+
+<input id="text" />
+<button onclick="send();">Send</button>
   </div>
   <div id="matchCC">
     <button>Report Score</button>
